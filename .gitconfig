@@ -1,0 +1,14 @@
+[user]
+	name = Usman Khan
+
+[color]
+	ui = true
+
+[alias]
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+
+[core]
+	editor = /usr/bin/vim
