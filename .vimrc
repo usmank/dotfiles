@@ -18,10 +18,18 @@ call vundle#begin()
 " List of pluings
 Plugin 'gmarik/Vundle.vim'
 Plugin 'sjl/gundo.vim'
+Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
+Plugin 'christoomey/vim-tmux-navigator'
 
 call vundle#end()
 filetype plugin indent on
+
+" }}}
+" Leader Key {{{
+
+" Set leader key to comma
+let mapleader=","
 
 " }}}
 " Colorscheme {{{
@@ -104,6 +112,7 @@ set smarttab
 " Show special characters like tabs and trailing spaces
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·,eol:¬
 
+" Toggle list
 nnoremap <silent> <leader>l :set list!<CR>
 
 " }}}
@@ -161,7 +170,9 @@ set tags=./.tags,.tags,../.tags;
 " }}}
 " Tabline {{{
 
-set tabline=%!MyTabLine()
+if exists("+showtabline")
+    set tabline=%!MyTabLine()
+endif
 
 " Colors for tabline
 highlight TabLine ctermfg=250 ctermbg=233 cterm=None
@@ -171,23 +182,22 @@ highlight TabLineSel ctermfg=233 ctermbg=33 cterm=None
 " }}}
 " Leader Shortcuts {{{
 
-" Set leader key to comma
-let mapleader=","
-
 " Reload .vimrc file
-nnoremap <leader>r :so $MYVIMRC<CR>
+nnoremap <leader>s :so $MYVIMRC<CR>
 
 " Toggle cursorline
 nnoremap <silent> <leader>c :set cursorline!<CR>
 
 " Strip all trailing whitespace from a file
-nnoremap <leader>s :%s/\s\+$//<CR>:let @/=''<CR>
+nnoremap <leader>w :%s/\s\+$//<CR>:let @/=''<CR>
 
 " Toggle paste mode
 nnoremap <leader>p :set paste!<CR>
 
 " Toggle Gundo
 nnoremap <silent> <leader>u :GundoToggle<CR>
+
+" Toggle list
 
 " }}}
 " General Navigation {{{
@@ -206,6 +216,12 @@ noremap <tab> %
 " Visual select the last inserted text
 nnoremap gV `[v`]
 
+" Vim tmux navigator mappings
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
+nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
 " }}}
 " Tab Creation and Navigation {{{
 
@@ -223,7 +239,8 @@ noremap T gT
 " Use fuzzy matching
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-nnoremap <silent> <leader>f :Unite -start-insert buffer file_rec<CR>
+nnoremap <silent> <leader>f :Unite -start-insert buffer file<CR>
+nnoremap <silent> <leader>r :Unite -start-insert buffer file_rec/async<CR>
 
 " }}}
 " Buffer navigation {{{
@@ -257,44 +274,42 @@ function! VisualSelection(direction) range
 endfunction
 
 " Custom tabline formatting
-if exists("+showtabline")
-    function! MyTabLine()
-        let s = ''
-        for i in range(tabpagenr('$'))
-            " Set up some variables
-            let tab = i + 1
-            let winnr = tabpagewinnr(tab)
-            let buflist = tabpagebuflist(tab)
-            let bufnr = buflist[winnr - 1]
-            let bufname = bufname(bufnr)
+function! MyTabLine()
+    let s = ''
+    for i in range(tabpagenr('$'))
+        " Set up some variables
+        let tab = i + 1
+        let winnr = tabpagewinnr(tab)
+        let buflist = tabpagebuflist(tab)
+        let bufnr = buflist[winnr - 1]
+        let bufname = bufname(bufnr)
 
-            let s .= '%' . tab . 'T'
-            let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-            let s .= ' [' . tab . ':'
+        let s .= '%' . tab . 'T'
+        let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+        let s .= ' [' . tab . ':'
 
-            if bufname != ''
-                let s .= pathshorten(bufname)
-            else
-                let s .= 'No Name'
-            endif
+        if bufname != ''
+            let s .= pathshorten(bufname)
+        else
+            let s .= 'No Name'
+        endif
 
-            let bufmodified = getbufvar(bufnr, "&mod")
-            if bufmodified
-                let s .= ' +] '
-            else
-                let s .= '] '
-            endif
-        endfor
+        let bufmodified = getbufvar(bufnr, "&mod")
+        if bufmodified
+            let s .= ' +] '
+        else
+            let s .= '] '
+        endif
+    endfor
 
-        let s .= '%#TabLineFill#'
-        let s .= '%T'
-        let s .= '%='
-        let s .= '%#TabLine#'
-        let s .= '%999XX'
+    let s .= '%#TabLineFill#'
+    let s .= '%T'
+    let s .= '%='
+    let s .= '%#TabLine#'
+    let s .= '%999XX'
 
-        return s
-    endfunction
-endif
+    return s
+endfunction
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0

@@ -1,8 +1,9 @@
 [user]
-	name = Usman Khan
+    name = Usman Khan
+    email = usmankhan9190@gmail.com
 
 [color]
-	ui = true
+    ui = true
 
 [alias]
     co = checkout
@@ -11,4 +12,4 @@
     st = status
 
 [core]
-	editor = /usr/bin/vim
+    editor = /usr/bin/vim
