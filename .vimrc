@@ -18,6 +18,7 @@ call vundle#begin()
 " List of pluings
 Plugin 'gmarik/Vundle.vim'
 Plugin 'sjl/gundo.vim'
+Plugin 'Shougo/unite.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -103,7 +104,7 @@ set smarttab
 " Show special characters like tabs and trailing spaces
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·,eol:¬
 
-nnoremap <leader>l :set list!<CR>
+nnoremap <silent> <leader>l :set list!<CR>
 
 " }}}
 " Indentation {{{
@@ -158,28 +159,35 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 set tags=./.tags,.tags,../.tags;
 
 " }}}
+" Tabline {{{
+
+set tabline=%!MyTabLine()
+
+" Colors for tabline
+highlight TabLine ctermfg=250 ctermbg=233 cterm=None
+highlight TabLineFill ctermfg=16 ctermbg=233 cterm=None
+highlight TabLineSel ctermfg=233 ctermbg=33 cterm=None
+
+" }}}
 " Leader Shortcuts {{{
 
 " Set leader key to comma
 let mapleader=","
 
 " Reload .vimrc file
-nnoremap <silent> <leader>r :so $MYVIMRC<CR>
+nnoremap <leader>r :so $MYVIMRC<CR>
 
 " Toggle cursorline
-nnoremap <leader>c :set cursorline!<CR>
+nnoremap <silent> <leader>c :set cursorline!<CR>
 
 " Strip all trailing whitespace from a file
 nnoremap <leader>s :%s/\s\+$//<CR>:let @/=''<CR>
 
-" Save current file
-nnoremap <leader>w :w <CR>
-
 " Toggle paste mode
-nnoremap <silent> <leader>p :set paste!<CR>
+nnoremap <leader>p :set paste!<CR>
 
 " Toggle Gundo
-nnoremap <leader>u :GundoToggle<CR>
+nnoremap <silent> <leader>u :GundoToggle<CR>
 
 " }}}
 " General Navigation {{{
@@ -210,6 +218,14 @@ nnoremap t gt
 noremap T gT
 
 "}}}
+" Unite Configuration {{{
+
+" Use fuzzy matching
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+nnoremap <silent> <leader>f :Unite -start-insert buffer file_rec<CR>
+
+" }}}
 " Buffer navigation {{{
 
 nnoremap <leader>bl :buffers<CR>
@@ -240,6 +256,45 @@ function! VisualSelection(direction) range
     let @" = l:saved_reg
 endfunction
 
+" Custom tabline formatting
+if exists("+showtabline")
+    function! MyTabLine()
+        let s = ''
+        for i in range(tabpagenr('$'))
+            " Set up some variables
+            let tab = i + 1
+            let winnr = tabpagewinnr(tab)
+            let buflist = tabpagebuflist(tab)
+            let bufnr = buflist[winnr - 1]
+            let bufname = bufname(bufnr)
+
+            let s .= '%' . tab . 'T'
+            let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
+            let s .= ' [' . tab . ':'
+
+            if bufname != ''
+                let s .= pathshorten(bufname)
+            else
+                let s .= 'No Name'
+            endif
+
+            let bufmodified = getbufvar(bufnr, "&mod")
+            if bufmodified
+                let s .= ' +] '
+            else
+                let s .= '] '
+            endif
+        endfor
+
+        let s .= '%#TabLineFill#'
+        let s .= '%T'
+        let s .= '%='
+        let s .= '%#TabLine#'
+        let s .= '%999XX'
+
+        return s
+    endfunction
+endif
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
