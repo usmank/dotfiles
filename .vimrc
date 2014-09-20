@@ -216,12 +216,6 @@ noremap <tab> %
 " Visual select the last inserted text
 nnoremap gV `[v`]
 
-" Vim tmux navigator mappings
-let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
-nnoremap <silent> <C-j> :TmuxNavigateDown<CR>
-nnoremap <silent> <C-k> :TmuxNavigateUp<CR>
-nnoremap <silent> <C-l> :TmuxNavigateRight<CR>
 " }}}
 " Tab Creation and Navigation {{{
 
