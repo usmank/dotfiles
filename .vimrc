@@ -21,6 +21,8 @@ Plugin 'sjl/gundo.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'bling/vim-airline'
+Plugin 'sjl/badwolf'
 
 call vundle#end()
 filetype plugin indent on
@@ -46,7 +48,7 @@ set t_Co=256
 " Determines which version of the solarized colorscheme gets used
 "let g:solarized_termcolors=256
 
-colorscheme molokai
+colorscheme badwolf
 
 " }}}
 " General {{{
@@ -235,6 +237,21 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 nnoremap <silent> <leader>f :Unite -start-insert buffer file<CR>
 nnoremap <silent> <leader>r :Unite -start-insert buffer file_rec/async<CR>
+
+" }}}
+" Airline Configuration {{{
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" Unicode symbols
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.whitespace = 'Ξ'
 
 " }}}
 " Buffer navigation {{{
