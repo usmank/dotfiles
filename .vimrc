@@ -1,7 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Author: Usman Khan
-" 
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle {{{
 
@@ -76,7 +76,11 @@ set mouse=a
 set noswapfile
 
 " Highlight the 81st column
-set colorcolumn=81
+if exists('+colorcolumn')
+    set colorcolumn=81
+else
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
 
 " Show partial command as it is typed
 set showcmd
@@ -173,7 +177,7 @@ set tags=./.tags,.tags,../.tags;
 " }}}
 " Tabline {{{
 
-if exists("+showtabline")
+if exists('+showtabline')
     set tabline=%!MyTabLine()
 endif
 
@@ -223,8 +227,8 @@ nnoremap gV `[v`]
 " Tab Creation and Navigation {{{
 
 " Tab creation
-nnoremap <leader>te :tabedit 
-nnoremap <leader>tm :tabmove 
+nnoremap <leader>te :tabedit
+nnoremap <leader>tm :tabmove
 
 " Tab navigation
 nnoremap t gt
@@ -258,7 +262,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 " Buffer navigation {{{
 
 nnoremap <leader>bl :buffers<CR>
-nnoremap <leader>bv :vert sb 
+nnoremap <leader>bv :vert sb
 
 " }}}
 " Custom Functions {{{
