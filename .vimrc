@@ -240,8 +240,13 @@ noremap T gT
 " Use fuzzy matching
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
+" Put a cap on number of grep search results
+let g:unite_source_grep_max_candidates = 200
+let g:unite_source_grep_default_opts = '-i -n --exclude-dir=''.git'''
+
 nnoremap <silent> <leader>f :Unite -start-insert buffer file<CR>
 nnoremap <silent> <leader>r :Unite -start-insert buffer file_rec/async<CR>
+nnoremap <silent> <leader>/ :Unite grep<CR>
 
 " }}}
 " Airline Configuration {{{
