@@ -47,10 +47,15 @@ setup_bash() {
     HISTFILESIZE=1000000
 
     # Ignore certains commands
-    HISTIGNORE='l:ls:bg:fg:jobs:history'
+    HISTIGNORE="l:ls:bg:fg:jobs:history"
 
     # Append to the history file, don't overwrite it
     shopt -s histappend
+
+    # Append to history after each command instead of waiting till exit. This
+    # should help with preseving history even when the session terminaotes
+    # improperly or when using multiple sessions at the same time.
+    PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
     ########################################
     # Prompt
