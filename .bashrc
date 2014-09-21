@@ -82,6 +82,7 @@ setup_bash() {
     alias l='ls -ohF --group-directories-first'
     alias ll='l --color | less -R'
     alias la='l -A'
+    alias lt='l -rt'
 
     # Make copy, remove and move verbose by default
     alias cp='cp -v'
