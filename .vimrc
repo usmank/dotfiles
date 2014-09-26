@@ -46,9 +46,6 @@ set background=dark
 " Number of colors
 set t_Co=256
 
-" Determines which version of the solarized colorscheme gets used
-"let g:solarized_termcolors=256
-
 colorscheme badwolf
 
 " }}}
