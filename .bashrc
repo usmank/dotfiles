@@ -111,49 +111,12 @@ setup_bash() {
 # git_prompt() and set_prompt() are both based on bash prompt code from
 # https://github.com/necolas/dotfiles
 git_prompt() {
-    local s=""
     local branchName=""
 
-    # Check if the current directory is in a git repository
-    if [ $(git rev-parse --is-inside-work-tree &>/dev/null; printf "%s" $?) == 0 ]; then
+    # Get the name of the current Git branch
+    branchName="$(__git_ps1 %s)"
 
-        # Check if the current directory is in .git before running git checks
-        if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == "false" ]; then
-
-            # Ensure index is up to date
-            git update-index --really-refresh  -q &>/dev/null
-
-            # Check for uncommitted changes in the index
-            if ! $(git diff --quiet --ignore-submodules --cached); then
-                s+="$s+";
-            fi
-
-            # Check for unstaged changes
-            if ! $(git diff-files --quiet --ignore-submodules --); then
-                s+="!";
-            fi
-
-            # Check for untracked files
-            if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-                s+="?";
-            fi
-
-            # Check for stashed files
-            if $(git rev-parse --verify refs/stash &>/dev/null); then
-                s+="$";
-            fi
-
-        fi
-
-        # Get the name of the current Git branch
-        branchName="$(__git_ps1 %s)"
-
-        [ -n "$s" ] && s=" [$s]"
-
-        printf "%s" "$1$branchName$s"
-    else
-        return
-    fi
+    printf "%s" "$1$branchName"
 }
 
 set_prompt() {
