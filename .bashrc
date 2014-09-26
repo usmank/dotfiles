@@ -116,7 +116,11 @@ git_prompt() {
     # Get the name of the current Git branch
     branchName="$(__git_ps1 %s)"
 
-    printf "%s" "$1$branchName"
+    if [ -n "$branchName" ]; then
+        printf "%s" "$1$branchName"
+    else
+        return
+    fi
 }
 
 set_prompt() {
