@@ -54,6 +54,9 @@ colorscheme badwolf
 " Completion mode
 set wildmode=longest,list
 
+" Ignore case when autocompleting file names
+set wildignorecase
+
 " Maintain a buffer of lines when scrolling up or down
 set scrolloff=2
 
@@ -241,8 +244,8 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 let g:unite_source_grep_max_candidates = 200
 let g:unite_source_grep_default_opts = '-i -n --exclude-dir=''.git'''
 
-nnoremap <silent> <leader>f :Unite -start-insert buffer file<CR>
-nnoremap <silent> <leader>r :Unite -start-insert buffer file_rec/async<CR>
+nnoremap <silent> <leader>f :Unite -start-insert file buffer<CR>
+nnoremap <silent> <leader>r :Unite -start-insert file_rec/async buffer <CR>
 nnoremap <silent> <leader>/ :Unite grep<CR>
 
 " }}}
