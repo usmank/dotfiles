@@ -22,8 +22,12 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'bling/vim-airline'
-Plugin 'sjl/badwolf'
 Plugin 'tpope/vim-fugitive'
+Plugin 'rust-lang/rust.vim'
+
+" Colorschemes
+Plugin 'sjl/badwolf'
+Plugin 'tomasr/molokai'
 
 call vundle#end()
 filetype plugin indent on
