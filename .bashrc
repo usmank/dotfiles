@@ -24,6 +24,7 @@ setup_bash() {
 
     # Make less more friendly for non-text input files, see lesspipe(1)
     [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+    export LESS="-R"
 
     # Stop Ctrl-s from stopping terminal
     stty -ixon
@@ -86,7 +87,7 @@ setup_bash() {
 
     # ls aliases
     alias l='ls -ohF --group-directories-first'
-    alias ll='l --color | less -R'
+    alias ll='l --color | less'
     alias la='l -A'
     alias lt='l -rt'
 
