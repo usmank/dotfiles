@@ -156,11 +156,11 @@ set_prompt() {
     # Set the terminal title to the current working directory
     PS1="\[\033]0;\u@\h: \w\007\]"
 
-    PS1+="\[$userStyle\]\u"                         # Username
-    PS1+="\[$reset$bold_black\]: "                  # Colon
-    PS1+="\[$bold_green\]\w"                        # Working directory
-    PS1+="\$(git_prompt \"$bold_black on $blue\")"  # Git repository details
-    PS1+="\[$reset$bold_black\]\$ \[$reset\]"       # $ (and reset color)
+    PS1+="\[$userStyle\]\u"                                 # Username
+    PS1+="\[$reset$bold_black\]:"                           # Colon
+    PS1+="\[$bold_green\]\w"                                # Working directory
+    PS1+="\$(git_prompt \"\[$bold_black\] on \[$blue\]\")"  # Git repository details
+    PS1+="\[$reset$bold_black\] \$ \[$reset\]"              # $ (and reset color)
 
     export PS1
 }
