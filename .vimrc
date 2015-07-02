@@ -24,6 +24,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'rust-lang/rust.vim'
+Plugin 'Twinside/vim-hoogle'
 
 " Colorschemes
 Plugin 'sjl/badwolf'
@@ -173,6 +174,9 @@ map <silent> <leader><space> :nohlsearch<CR>
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
+" Vimgrep
+nnoremap <silent> <leader>g :vim /\v
+
 " }}}
 " Ctags {{{
 
@@ -239,6 +243,15 @@ nnoremap t gt
 noremap T gT
 
 "}}}
+" vim-hoogle Configuration {{{
+
+let g:hoogle_search_buf_name = 'HoogleResults'
+
+au BufNewFile,BufRead *.hs nnoremap <buffer> <leader>hf :Hoogle 
+au BufNewFile,BufRead *.hs nnoremap <buffer> <leader>hc :HoogleClose<CR>
+au BufNewFile,BufRead *.hs nnoremap <buffer> <leader>hl :HoogleLine<CR>
+
+" }}}
 " Unite Configuration {{{
 
 " Use fuzzy matching
