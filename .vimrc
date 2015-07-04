@@ -257,7 +257,7 @@ au BufNewFile,BufRead *.hs nnoremap <buffer> <leader>hl :HoogleLine<CR>
 
 " Use fuzzy matching
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#custom#default_action("file", "tabopen")
+call unite#custom#default_action("file", "tabswitch")
 
 " Put a cap on number of grep search results
 let g:unite_source_grep_max_candidates = 200
