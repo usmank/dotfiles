@@ -25,6 +25,7 @@ Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'rust-lang/rust.vim'
 Plugin 'Twinside/vim-hoogle'
+Plugin 'scrooloose/syntastic'
 
 " Colorschemes
 Plugin 'sjl/badwolf'
@@ -247,7 +248,7 @@ noremap T gT
 
 let g:hoogle_search_buf_name = 'HoogleResults'
 
-au BufNewFile,BufRead *.hs nnoremap <buffer> <leader>hf :Hoogle 
+au BufNewFile,BufRead *.hs nnoremap <buffer> <leader>hf :Hoogle
 au BufNewFile,BufRead *.hs nnoremap <buffer> <leader>hc :HoogleClose<CR>
 au BufNewFile,BufRead *.hs nnoremap <buffer> <leader>hl :HoogleLine<CR>
 
@@ -256,6 +257,7 @@ au BufNewFile,BufRead *.hs nnoremap <buffer> <leader>hl :HoogleLine<CR>
 
 " Use fuzzy matching
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#custom#default_action("file", "tabopen")
 
 " Put a cap on number of grep search results
 let g:unite_source_grep_max_candidates = 200
@@ -279,6 +281,9 @@ let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇ '
 let g:airline_symbols.paste = 'Paste'
 let g:airline_symbols.whitespace = 'Ξ'
+
+" Enable syntastic integration
+let g:airline#extensions#syntastic#enabled = 1
 
 " }}}
 " Buffer navigation {{{
