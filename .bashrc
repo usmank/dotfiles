@@ -8,6 +8,9 @@ setup_bash() {
     ########################################
     # General
     ########################################
+    # PATH
+    PATH=/home/usman/.cabal/bin:$PATH
+
     # Set default editor
     EDITOR=$(which vim)
 
