@@ -6,6 +6,8 @@
 #
 # Requires GNU make and Git.
 #
+# TODO:
+# 	[ ] Use symlinks instead of copying.
 ################################################################################
 
 HOME_DIR 	= ~

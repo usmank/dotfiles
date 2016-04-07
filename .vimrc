@@ -3,7 +3,7 @@
 " Author: Usman Khan
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle {{{
+" ========== Vundle {{{
 
 " Run :PluginInstall to automatically retrieve and install plugins
 
@@ -16,29 +16,33 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " List of pluings
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/unite.vim'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'kien/ctrlp.vim'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'eagletmt/ghcmod-vim'
+Plugin 'travitch/hasksyn'
+
+" List of colorschemes
 Plugin 'sjl/badwolf'
-Plugin 'tpope/vim-fugitive'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'scwood/vim-hybrid'
+Plugin 'duythinht/inori'
+"Plugin 'baskerville/bubblegum'
+Plugin 'file:///home/usman/dev/vim-bubblegum-custom'
 
 call vundle#end()
 filetype plugin indent on
 
 " }}}
-" Leader Key {{{
-
-" Set leader key to comma
-let mapleader=","
-
-" }}}
-" Colorscheme {{{
+" ========== Colorscheme {{{
 
 " Enable syntax highlighting
-syntax on
+syntax enable
 
 " Set background (determines what colors are used by some colorschemes)
 set background=dark
@@ -46,10 +50,16 @@ set background=dark
 " Number of colors
 set t_Co=256
 
-colorscheme badwolf
+colorscheme bubblegum-256-dark
 
 " }}}
-" General {{{
+" ========== Leader Key {{{
+
+" Set leader key to comma
+let mapleader=","
+
+" }}}
+" ========== General {{{
 
 " Completion mode
 set wildmode=longest,list
@@ -66,21 +76,14 @@ set number
 " Always show status line
 set laststatus=2
 
-" Highlight current line
-set cursorline
-
 " Enable mouse support in all modes
 set mouse=a
 
 " Don't create swap files for buffers
 set noswapfile
 
-" Highlight the 81st column
-if exists('+colorcolumn')
-    set colorcolumn=81
-else
-    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-endif
+" Set textwidth to be longer than the default 78
+set textwidth=120
 
 " Show partial command as it is typed
 set showcmd
@@ -99,19 +102,28 @@ nnoremap ' `
 nnoremap ` '
 
 " }}}
-" Spaces and Tabs {{{
+" ========== CursorLine {{{
+
+" Highlight current line
+set cursorline
+
+" Toggle cursorline
+nnoremap <silent> <leader>c :set cursorline!<CR>
+
+" }}}
+" ========== Spaces and Tabs {{{
 
 " Convert tab to spaces
 set expandtab
 
 " Number of spaces for each tab
-set tabstop=4
+set tabstop=2
 
 " Number of spaces for each tab when editing
-set softtabstop=4
+set softtabstop=2
 
 " Number of spaces to use when indenting (e.g. >>, <<, etc.)
-set shiftwidth=4
+set shiftwidth=2
 
 " Use shiftwidth instead of tabstop/softabstop on <Tab>
 set smarttab
@@ -123,7 +135,7 @@ set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·,eol:¬
 nnoremap <silent> <leader>l :set list!<CR>
 
 " }}}
-" Indentation {{{
+" ========== Indentation {{{
 
 " Continue the current line's indentation when starting a new line
 set autoindent
@@ -135,7 +147,7 @@ set copyindent
 set cinkeys-=0#
 
 " }}}
-" Filetype {{{
+" ========== Filetype {{{
 
 " Enable loading plugin files based on filetype
 filetype plugin on
@@ -144,7 +156,7 @@ filetype plugin on
 filetype indent on
 
 " }}}
-" Search {{{
+" ========== Search {{{
 
 " Show matches while typing search pattern
 set incsearch
@@ -170,33 +182,33 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " }}}
-" Ctags {{{
+" ========== Ctags {{{
 
-set tags=./.tags,.tags,../.tags;
+set tags=./tags,tags,../tags;
 
 " }}}
-" Tabline {{{
+" ========== Tabline {{{
 
 if exists('+showtabline')
     set tabline=%!MyTabLine()
 endif
 
 " Colors for tabline
-highlight TabLine ctermfg=250 ctermbg=233 cterm=None
-highlight TabLineFill ctermfg=16 ctermbg=233 cterm=None
-highlight TabLineSel ctermfg=233 ctermbg=33 cterm=None
+highlight TabLine ctermfg=245 ctermbg=236
+highlight TabLineFill ctermbg=236
+highlight TabLineSel ctermfg=252 ctermbg=235 cterm=None
 
 " }}}
-" Leader Shortcuts {{{
+" ========== Leader Shortcuts {{{
 
 " Reload .vimrc file
 nnoremap <leader>s :so $MYVIMRC<CR>
 
-" Toggle cursorline
-nnoremap <silent> <leader>c :set cursorline!<CR>
+" Reload current file
+nnoremap <leader>e :e!<CR>
 
-" Strip all trailing whitespace from a file
-nnoremap <leader>w :%s/\s\+$//<CR>:let @/=''<CR>
+" Trim all trailing whitespace from a file
+nnoremap <leader>t :%s/\s\+$//<CR>:let @/=''<CR>
 
 " Toggle paste mode
 nnoremap <leader>p :set paste!<CR>
@@ -204,10 +216,11 @@ nnoremap <leader>p :set paste!<CR>
 " Toggle Gundo
 nnoremap <silent> <leader>u :GundoToggle<CR>
 
-" Toggle list
+" Save
+nnoremap <leader>w :w<CR>
 
 " }}}
-" General Navigation {{{
+" ========== General Keybinds {{{
 
 " Treat wrapped lines as multiple lines
 nnoremap j gj
@@ -217,14 +230,11 @@ nnoremap k gk
 nnoremap 0 ^
 nnoremap ^ 0
 
-" Tab finds matching bracket
-noremap <tab> %
-
 " Visual select the last inserted text
 nnoremap gV `[v`]
 
 " }}}
-" Tab Creation and Navigation {{{
+" ========== Tab Creation and Navigation {{{
 
 " Tab creation
 nnoremap <leader>te :tabedit
@@ -235,21 +245,27 @@ nnoremap t gt
 noremap T gT
 
 "}}}
-" Unite Configuration {{{
+" ========== CtrlP Configuration {{{
 
-" Use fuzzy matching
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" Remap the keybinding used to invoke CtrlP.
+"let g:ctrlp_map = '<leader>f'
 
-" Put a cap on number of grep search results
-let g:unite_source_grep_max_candidates = 200
-let g:unite_source_grep_default_opts = '-i -n --exclude-dir=''.git'''
+"let g:ctrlp_cmd = 'CtrlPMixed'
 
-nnoremap <silent> <leader>f :Unite -start-insert file buffer<CR>
-nnoremap <silent> <leader>r :Unite -start-insert file_rec/async buffer <CR>
-nnoremap <silent> <leader>/ :Unite grep<CR>
+" Use the pwd instead of the directory of the current file.
+let g:ctrlp_working_path_mode = 'rwa'
+
+" Resize the CtrlP window.
+"let g:ctrlp_match_window = 'bottom,order:btt,min:10,max:10,results:10'
+
+" Remap <CR> to open files in a tab and <c-t> to open in the current window.
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>', '<2-LeftMouse>'],
+    \ 'AcceptSelection("t")': ['<cr>'],
+    \ }
 
 " }}}
-" Airline Configuration {{{
+" ========== Airline Configuration {{{
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -264,13 +280,13 @@ let g:airline_symbols.paste = 'Paste'
 let g:airline_symbols.whitespace = 'Ξ'
 
 " }}}
-" Buffer navigation {{{
+" ========== Buffer navigation {{{
 
 nnoremap <leader>bl :buffers<CR>
 nnoremap <leader>bv :vert sb
 
 " }}}
-" Custom Functions {{{
+" ========== Custom Functions {{{
 
 " Use current visual mode selection to search forward/backward
 function! VisualSelection(direction) range
