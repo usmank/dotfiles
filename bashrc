@@ -159,15 +159,14 @@ set_prompt() {
         userStyle="$green"
     fi
 
-    # Set the terminal title to the current working directory
-    #PS1="\[\033]0;\u@\h: \w\007\]"
-
+    # Return code of last command.
     PS1="\[$bold_black\][\$?] "
-    #PS1+="\[$userStyle\]\u"                         # Username
-    #PS1+="\[$bold_black\]:"                         # Colon
-    PS1+="\[$bold_green\]\w"                        # Working directory
-    PS1+="\$(git_prompt \"$bold_black on $blue\")"  # Git repository details
-    PS1+=" \[$reset$bold_black\]\$ \[$reset\]"      # $ (and reset color)
+    # Working directory.
+    PS1+="\[$bold_green\]\w"
+    # Git repo details only if the current directory is a git repo.
+    PS1+="\$(git_prompt \"\[$bold_black\] on \[$blue\]\")"
+    # $ and reset color.
+    PS1+=" \[$reset$bold_black\]\$ \[$reset\]"
 
     export PS1
 }
