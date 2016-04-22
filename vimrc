@@ -23,7 +23,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
-"Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 "Plugin 'eagletmt/ghcmod-vim'
 Plugin 'travitch/hasksyn'
 
@@ -32,8 +32,8 @@ Plugin 'sjl/badwolf'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scwood/vim-hybrid'
 Plugin 'duythinht/inori'
-"Plugin 'baskerville/bubblegum'
-Plugin 'file:///home/usman/dev/vim-bubblegum-custom'
+Plugin 'baskerville/bubblegum'
+"Plugin 'file:///home/usman/dev/vim-bubblegum-custom'
 
 call vundle#end()
 filetype plugin indent on
@@ -267,18 +267,37 @@ let g:ctrlp_prompt_mappings = {
 " }}}
 " ========== Airline Configuration {{{
 
+let g:airline_theme = 'bubblegum'
+
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
 " Unicode symbols
 let g:airline_left_sep = ''
+let g:airline_left_alt_sep = '│'
 let g:airline_right_sep = ''
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇ '
-let g:airline_symbols.paste = 'Paste'
+let g:airline_right_alt_sep = '│'
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.paste = 'paste'
 let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.readonly = ''
 
+" Shortform mode text
+let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
 " }}}
 " ========== Buffer navigation {{{
 
