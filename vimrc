@@ -129,7 +129,7 @@ set shiftwidth=2
 set smarttab
 
 " Show special characters like tabs and trailing spaces
-set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·,eol:¬
+set listchars=tab:\|\ ,trail:·,extends:#,nbsp:·,space:·,eol:¬
 
 " Toggle list
 nnoremap <silent> <leader>l :set list!<CR>

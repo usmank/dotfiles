@@ -78,6 +78,7 @@ RPROMPT='$(git_prompt)'
 # ------------------------------------------------------------------------------
 
 # --- Aliases ------------------------------------------------------------------
+alias grep='grep --color'
 alias ls='ls --color=auto --group-directories-first'
 alias l='ls -lhF'
 alias la='l -a'
