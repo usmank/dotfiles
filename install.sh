@@ -8,7 +8,7 @@
 set -e
 
 # All the dotfiles that we care about. Note the lack of leading dot.
-dotfiles=(zshrc bashrc ghci gitconfig inputrc tmux.conf vimrc)
+dotfiles=(zshrc bashrc ghci gitconfig inputrc tmux.conf vimrc haskeline)
 
 home_dir=$HOME
 vundle_repo=http://github.com/VundleVim/Vundle.Vim
