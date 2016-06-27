@@ -39,11 +39,11 @@ export EDITOR=/bin/vim
 autoload -Uz colors && colors
 
 # Show '*' for unstaged and a '+' for staged changes
-GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWDIRTYSTATE=
 # Show '$' if something is stashed
-GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWSTASHSTATE=
 # Show '%' if their are untracked files
-GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUNTRACKEDFILES=
 # Separator after the branch name
 GIT_PS1_STATESEPARATOR=" "
 
@@ -58,23 +58,35 @@ git_prompt() {
   branch_name="$(__git_ps1 %s)"
 
   if [[ -n $branch_name ]]; then
-    printf "%s" "$1%{$fg_no_bold[blue]%}[%{$fg_no_bold[green]%}$branch_name%{$fg_no_bold[blue]%}]%{$reset_color%}"
+    printf "%s" "%{$fg_bold[black]%}$1%{$fg_no_bold[green]%}$branch_name%{$reset_color%}"
   fi
 
   return
 }
 
-# Last command status
-PROMPT="%{$fg_no_bold[blue]%}[%?]"
-# Username and hostname
-#PROMPT+=" %n@%m"
+## Last command status
+#PROMPT="%{$fg_no_bold[blue]%}[%?]"
+## Username and hostname
+##PROMPT+=" %n@%m"
+## Current working directory
+#PROMPT+=" %{$fg_bold[blue]%}%~"
+## % for non-root and # for root
+#PROMPT+=" %{$fg_no_bold[blue]%}%#%{$reset_color%} "
+#
+## Git branch if we are in a Git repo
+#RPROMPT='$(git_prompt)'
+
+NEWLINE=$'\n'
 # Current working directory
-PROMPT+=" %{$fg_bold[blue]%}%~"
+#PROMPT="%{$fg_bold[green]%}%n@%m"
+PROMPT="%{$fg_bold[blue]%}%~"
+PROMPT+='$(git_prompt " on ")'
+#PROMPT+=" %(?..%{$fg_bold[red]%}[%?])"
 # % for non-root and # for root
-PROMPT+=" %{$fg_no_bold[blue]%}%#%{$reset_color%} "
+PROMPT+=" %(?.%{$fg_bold[green]%}.%{$fg_bold[red]%}[%?])→%{$reset_color%} "
 
 # Git branch if we are in a Git repo
-RPROMPT='$(git_prompt)'
+RPROMPT=""
 # ------------------------------------------------------------------------------
 
 # --- Aliases ------------------------------------------------------------------
@@ -87,6 +99,7 @@ alias lla='la --color | less -R'
 alias rm='rm -vI --one-file-system'
 alias tmux='tmux -2'
 alias zshrc='source ~/.zshrc'
+alias pacman='pacman --color=auto'
 # ------------------------------------------------------------------------------
 
 # --- Colored man pages --------------------------------------------------------

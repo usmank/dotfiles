@@ -26,6 +26,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 "Plugin 'eagletmt/ghcmod-vim'
 Plugin 'travitch/hasksyn'
+Plugin 'rust-lang/rust.vim'
 
 " List of colorschemes
 Plugin 'sjl/badwolf'
