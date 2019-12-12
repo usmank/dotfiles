@@ -31,7 +31,9 @@ alias help=run-help
 # ------------------------------------------------------------------------------
 
 # --- General ------------------------------------------------------------------
-export EDITOR=/bin/vim
+export PATH="/usr/local/bin:$PATH"
+export EDITOR=$(which vim)
+export KEYTIMEOUT=1
 # ------------------------------------------------------------------------------
 
 # --- PROMPT -------------------------------------------------------------------
@@ -39,7 +41,7 @@ export EDITOR=/bin/vim
 autoload -Uz colors && colors
 
 # Show '*' for unstaged and a '+' for staged changes
-GIT_PS1_SHOWDIRTYSTATE=
+GIT_PS1_SHOWDIRTYSTATE=1
 # Show '$' if something is stashed
 GIT_PS1_SHOWSTASHSTATE=
 # Show '%' if their are untracked files
@@ -58,59 +60,48 @@ git_prompt() {
   branch_name="$(__git_ps1 %s)"
 
   if [[ -n $branch_name ]]; then
-    printf "%s" "%{$fg_bold[black]%}$1%{$fg_no_bold[green]%}$branch_name%{$reset_color%}"
+    printf "%s" "%{$fg[white]%}$1%{$fg_bold[magenta]%}$branch_name"
   fi
 
   return
 }
 
-## Last command status
-#PROMPT="%{$fg_no_bold[blue]%}[%?]"
-## Username and hostname
-##PROMPT+=" %n@%m"
-## Current working directory
-#PROMPT+=" %{$fg_bold[blue]%}%~"
-## % for non-root and # for root
-#PROMPT+=" %{$fg_no_bold[blue]%}%#%{$reset_color%} "
-#
-## Git branch if we are in a Git repo
-#RPROMPT='$(git_prompt)'
-
 NEWLINE=$'\n'
-# Current working directory
-#PROMPT="%{$fg_bold[green]%}%n@%m"
-PROMPT="%{$fg_bold[blue]%}%~"
-PROMPT+='$(git_prompt " on ")'
-#PROMPT+=" %(?..%{$fg_bold[red]%}[%?])"
-# % for non-root and # for root
-PROMPT+=" %(?.%{$fg_bold[green]%}.%{$fg_bold[red]%}[%?])→%{$reset_color%} "
+PROMPT="${NEWLINE}"
+PROMPT+="%{$bg[black]%}%(?.%{$fg[green]%}.%{$fg[red]%})● %{$reset_color%}"
+PROMPT+="%{$bg[black]%}%{$fg[blue]%}%~ %{$reset_color%}"
+#PROMPT+="%{$fg[white]%}%{$reset_color%} "
+PROMPT+="%{$reset_color%} "
 
-# Git branch if we are in a Git repo
-RPROMPT=""
+RPROMPT='$(git_prompt "  ")%{$reset_color%}'
+
 # ------------------------------------------------------------------------------
 
 # --- Aliases ------------------------------------------------------------------
-alias grep='grep --color'
-alias ls='ls --color=auto --group-directories-first'
-alias l='ls -lhF'
+alias ls='gls'
+alias l='ls -lFGh --color=auto --group-directories-first'
 alias la='l -a'
-alias ll='l --color | less -R'
-alias lla='la --color | less -R'
-alias rm='rm -vI --one-file-system'
-alias tmux='tmux -2'
+alias ltr='l -tr'
 alias zshrc='source ~/.zshrc'
-alias pacman='pacman --color=auto'
+alias devproxy='http_proxy=http://bproxy.tdmz1.bloomberg.com:80 https_proxy=http://bproxy.tdmz1.bloomberg.com:80'
+alias extproxy='http_proxy=http://proxy.bloomberg.com:81 https_proxy=http://proxy.bloomberg.com:81'
+alias tmux='tmux -2'
+alias tmx='tmux -2 attach-session'
+alias fdl5='dev feed-linxdev05'
+alias grep='grep --colour=auto'
+alias hs='history | grep'
 # ------------------------------------------------------------------------------
 
 # --- Colored man pages --------------------------------------------------------
-man() {
-    env LESS_TERMCAP_mb=$'\E[01;31m' \
-    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
-    LESS_TERMCAP_me=$'\E[0m' \
-    LESS_TERMCAP_se=$'\E[0m' \
-    LESS_TERMCAP_so=$'\E[38;5;246m' \
-    LESS_TERMCAP_ue=$'\E[0m' \
-    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-    man "$@"
-}
+#man() {
+#    env LESS_TERMCAP_mb=$'\E[01;31m' \
+#    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+#    LESS_TERMCAP_me=$'\E[0m' \
+#    LESS_TERMCAP_se=$'\E[0m' \
+#    LESS_TERMCAP_so=$'\E[38;5;246m' \
+#    LESS_TERMCAP_ue=$'\E[0m' \
+#    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+#    man "$@"
+#}
 # ------------------------------------------------------------------------------
+
