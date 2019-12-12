@@ -71,7 +71,7 @@ PROMPT="${NEWLINE}"
 PROMPT+="%{$bg[black]%}%(?.%{$fg[green]%}.%{$fg[red]%})● %{$reset_color%}"
 PROMPT+="%{$bg[black]%}%{$fg[blue]%}%~ %{$reset_color%}"
 #PROMPT+="%{$fg[white]%}%{$reset_color%} "
-PROMPT+="%{$reset_color%} "
+PROMPT+="%{$reset_color%}"
 
 RPROMPT='$(git_prompt "  ")%{$reset_color%}'
 
