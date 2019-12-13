@@ -22,18 +22,19 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-fugitive'
 Plugin 'jremmen/vim-ripgrep'
-Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'godlygeek/tabular'
 
 " List of colorschemes
 "Plugin 'sjl/badwolf'
-Plugin 'altercation/vim-colors-solarized'
 "Plugin 'baskerville/bubblegum'
-Plugin 'joshdick/onedark.vim'
 "Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'joshdick/onedark.vim'
+Plugin 'ayu-theme/ayu-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -61,9 +62,8 @@ syntax enable
 " Set background (determines what colors are used by some colorschemes)
 set background=dark
 
-colorscheme onedark
-
-let g:airline_theme = 'onedark'
+let ayucolor="mirage"
+colorscheme ayu
 
 " }}}
 " ========== Leader Key {{{
