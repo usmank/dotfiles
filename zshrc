@@ -60,7 +60,7 @@ git_prompt() {
   branch_name="$(__git_ps1 %s)"
 
   if [[ -n $branch_name ]]; then
-    printf "%s" "%{$fg_bold[black]%}$1%{$fg[green]%}$branch_name"
+    printf "%s" "%{$fg[black]%}$1%{$fg[green]%}$branch_name"
   fi
 
   return
@@ -68,12 +68,11 @@ git_prompt() {
 
 NEWLINE=$'\n'
 PROMPT="${NEWLINE}"
-PROMPT+="%{$bg[black]%}%(?.%{$fg[green]%}.%{$fg[red]%})● %{$reset_color%}"
-PROMPT+="%{$bg[black]%}%{$fg[blue]%}%~ %{$reset_color%}"
-PROMPT+="%{$fg_bold[black]%}›%{$reset_color%} "
+PROMPT+="%{$bg[white]%}%(?.%{$fg[green]%}.%{$fg[red]%})● %{$reset_color%}"
+PROMPT+="%{$bg[white]%}%{$fg[blue]%}%~ %{$reset_color%}"
+PROMPT+="%{$fg[white]%}%{$reset_color%} "
 
 RPROMPT='$(git_prompt "  ")%{$reset_color%}'
-
 # ------------------------------------------------------------------------------
 
 # --- Aliases ------------------------------------------------------------------
@@ -95,6 +94,11 @@ alias hs='history | grep'
 mkcd()
 {
     mkdir $1 && cd $1
+}
+
+alert()
+{
+    $@; echo -e '\a'
 }
 # ------------------------------------------------------------------------------
 
