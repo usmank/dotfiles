@@ -60,7 +60,7 @@ git_prompt() {
   branch_name="$(__git_ps1 %s)"
 
   if [[ -n $branch_name ]]; then
-    printf "%s" "%{$fg[white]%}$1%{$fg_bold[magenta]%}$branch_name"
+    printf "%s" "%{$fg_bold[black]%}$1%{$fg[green]%}$branch_name"
   fi
 
   return
@@ -70,8 +70,7 @@ NEWLINE=$'\n'
 PROMPT="${NEWLINE}"
 PROMPT+="%{$bg[black]%}%(?.%{$fg[green]%}.%{$fg[red]%})● %{$reset_color%}"
 PROMPT+="%{$bg[black]%}%{$fg[blue]%}%~ %{$reset_color%}"
-#PROMPT+="%{$fg[white]%}%{$reset_color%} "
-PROMPT+="%{$reset_color%}"
+PROMPT+="%{$fg_bold[black]%}›%{$reset_color%} "
 
 RPROMPT='$(git_prompt "  ")%{$reset_color%}'
 
@@ -86,7 +85,7 @@ alias zshrc='source ~/.zshrc'
 alias devproxy='http_proxy=http://bproxy.tdmz1.bloomberg.com:80 https_proxy=http://bproxy.tdmz1.bloomberg.com:80'
 alias extproxy='http_proxy=http://proxy.bloomberg.com:81 https_proxy=http://proxy.bloomberg.com:81'
 alias tmux='tmux -2'
-alias tmx='tmux -2 attach-session'
+alias tmx='tmux -2 attach-session || tmux -2'
 alias fdl5='dev feed-linxdev05'
 alias grep='grep --colour=auto'
 alias hs='history | grep'
