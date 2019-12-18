@@ -62,8 +62,8 @@ syntax enable
 " Set background (determines what colors are used by some colorschemes)
 set background=dark
 
-let ayucolor="mirage"
-colorscheme ayu
+let g:onedark_terminal_italics=1
+colorscheme onedark
 
 " }}}
 " ========== Leader Key {{{
@@ -149,7 +149,7 @@ set shiftwidth=4
 set smarttab
 
 " Show special characters like tabs and trailing spaces
-set listchars=tab:\|\ ,trail:·,extends:#,nbsp:·,space:·,eol:¬
+set listchars=tab:\|\ ,trail:·,precedes:,extends:,nbsp:·,space:·,eol:¬
 
 " Toggle list
 nnoremap <silent> <leader>l :set list!<CR>
@@ -382,7 +382,7 @@ let g:airline_symbols.linenr = ''
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_symbols.branch = ''
-let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'P'
 let g:airline_symbols.readonly = ''
 
 " Shortform mode text

@@ -77,8 +77,8 @@ RPROMPT='$(git_prompt "  ")%{$reset_color%}'
 # ------------------------------------------------------------------------------
 
 # --- Aliases ------------------------------------------------------------------
-alias ls='gls'
-alias l='ls -lFGh --color=auto --group-directories-first'
+alias ls='gls --color=auto'
+alias l='ls -lFGh --group-directories-first'
 alias la='l -a'
 alias ltr='l -tr'
 alias zshrc='source ~/.zshrc'
