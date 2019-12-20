@@ -60,19 +60,22 @@ git_prompt() {
   branch_name="$(__git_ps1 %s)"
 
   if [[ -n $branch_name ]]; then
-    printf "%s" "%{$fg_bold[black]%}$1%{$fg[green]%}$branch_name"
+    printf "%s" "%{$fg[black]%}$1%{$fg[black]%}$branch_name "
   fi
 
   return
 }
 
 NEWLINE=$'\n'
-PROMPT="${NEWLINE}"
-PROMPT+="%{$bg[black]%}%(?.%{$fg[green]%}.%{$fg[red]%})● %{$reset_color%}"
-PROMPT+="%{$bg[black]%}%{$fg[blue]%}%~ %{$reset_color%}"
-PROMPT+="%{$fg_bold[black]%}›%{$reset_color%} "
+BG=$'%{\e[48;5;8m%}'
+BRIGHT_BG=$'%{\e[48;5;4m%}'
 
-RPROMPT='$(git_prompt "  ")%{$reset_color%}'
+PROMPT="${NEWLINE}"
+PROMPT+=$'${BG} %(?.%{$fg[green]%}.%{$fg[red]%})● %{$reset_color%}'
+PROMPT+=$'${BG}%{$fg[blue]%}%~ %{$reset_color%}'
+PROMPT+=$'${BRIGHT_BG}%{$fg_bold[black]%}%{$reset_color%}'
+PROMPT+=$'${BRIGHT_BG}$(git_prompt "  ")%{$reset_color%}'
+PROMPT+=$'%{$fg[blue]%}%{$reset_color%} '
 
 # ------------------------------------------------------------------------------
 
