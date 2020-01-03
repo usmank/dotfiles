@@ -291,6 +291,10 @@ nnoremap <C-w>z <C-w><Bar><C-w>_
 " Sort lines in paragraph
 nnoremap <leader>i vip:sort<CR>
 
+" Tabularize
+nnoremap <leader>tab :Tabularize /
+vnoremap <leader>tab :Tabularize /
+
 " }}}
 " ========== Tab Creation and Navigation {{{
 
@@ -334,10 +338,16 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['\.d$', '\.o$', '\.tsk$', '\.pyc$', '__pycache__']
 
 " Set window size on open
-let g:NERDTreeWinSize = 45
+let g:NERDTreeWinSize = 35
 
 " Single click to open directories, double click for files
 let g:NERDTreeMouseMode = 3
+
+" Cursorline withing NERDTree window
+let g:NERDTreeHighlightCursorline = 0
+
+" Collapse directories with only a single child directory
+let g:NERDTreeCascadeSingleChildDir = 0
 
 " }}}
 " ========== Airline {{{
@@ -345,6 +355,8 @@ let g:NERDTreeMouseMode = 3
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+let g:airline_theme = 'onedark'
 
 " Enable branch
 let g:airline#extensions#branch#enabled = 1

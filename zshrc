@@ -92,6 +92,8 @@ alias tmx='tmux -2 attach-session || tmux -2'
 alias fdl5='dev feed-linxdev05'
 alias grep='grep --colour=auto'
 alias hs='history | grep'
+alias nt='vim +NERDTreeTabsToggle'
+alias retval='echo $?'
 # ------------------------------------------------------------------------------
 
 # --- Functions ----------------------------------------------------------------
