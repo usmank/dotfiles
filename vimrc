@@ -127,8 +127,8 @@ set sidescroll=2
 " Buffer to maintain during horizontal scrolling
 set sidescrolloff=4
 
-" Highlight current line
-set nocursorline
+" Configure spell check
+set spelllang=en_us
 
 " }}}
 " ========== Spaces and Tabs {{{
@@ -165,6 +165,17 @@ set copyindent
 
 " Disable auto-unindentation of lines staritng with #
 set cinkeys-=0#
+
+" }}}
+" ========== Cursor {{{
+
+" Change cursor based on mode
+let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+
+" Highlight current line
+set nocursorline
 
 " }}}
 " ========== Filetype {{{
@@ -249,7 +260,10 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Reload .vimrc file
-nnoremap <leader>s :so $MYVIMRC<CR>
+nnoremap <leader>so :so $MYVIMRC<CR>
+
+" Toggle spell check
+nnoremap <leader>sp :set spell!<CR>
 
 " Reload current file
 nnoremap <leader>e :e!<CR>
