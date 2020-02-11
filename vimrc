@@ -170,9 +170,9 @@ set cinkeys-=0#
 " ========== Cursor {{{
 
 " Change cursor based on mode
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 " Highlight current line
 set nocursorline
@@ -340,6 +340,8 @@ let g:ctrlp_working_path_mode = 'rwa'
 "    \ 'AcceptSelection("t")': ['<cr>'],
 "    \ }
 
+let g:ctrlp_custom_ignore = {'dir': '\v(refroot|venv|build)$'}
+
 " }}}
 " ========== NERDTree {{{
 
@@ -352,7 +354,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['\.d$', '\.o$', '\.tsk$', '\.pyc$', '__pycache__']
 
 " Set window size on open
-let g:NERDTreeWinSize = 35
+let g:NERDTreeWinSize = 45
 
 " Single click to open directories, double click for files
 let g:NERDTreeMouseMode = 3
