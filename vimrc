@@ -62,7 +62,7 @@ syntax enable
 " Set background (determines what colors are used by some colorschemes)
 set background=dark
 
-let g:onedark_terminal_italics=1
+let g:onedark_terminal_italics=0
 colorscheme onedark
 
 " }}}
@@ -229,9 +229,7 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Search using ripgrep
-if exists(':Rg')
-    nnoremap <leader>/ :Rg 
-endif
+nnoremap <leader>/ :Rg 
 
 " }}}
 " ========== Ctags {{{
