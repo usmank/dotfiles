@@ -31,7 +31,7 @@ alias help=run-help
 # ------------------------------------------------------------------------------
 
 # --- General ------------------------------------------------------------------
-export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/bin:$PATH"
 export EDITOR=$(which vim)
 export KEYTIMEOUT=1
 # ------------------------------------------------------------------------------

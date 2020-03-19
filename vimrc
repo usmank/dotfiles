@@ -27,11 +27,12 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-fugitive'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'godlygeek/tabular'
+Plugin 'ycm-core/YouCompleteMe'
 
 " List of colorschemes
 "Plugin 'sjl/badwolf'
 "Plugin 'baskerville/bubblegum'
-"Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'joshdick/onedark.vim'
 Plugin 'ayu-theme/ayu-vim'
@@ -62,7 +63,6 @@ syntax enable
 " Set background (determines what colors are used by some colorschemes)
 set background=dark
 
-let g:onedark_terminal_italics=0
 colorscheme onedark
 
 " }}}
@@ -352,7 +352,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['\.d$', '\.o$', '\.tsk$', '\.pyc$', '__pycache__']
 
 " Set window size on open
-let g:NERDTreeWinSize = 45
+let g:NERDTreeWinSize = 40
 
 " Single click to open directories, double click for files
 let g:NERDTreeMouseMode = 3
@@ -370,7 +370,7 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-let g:airline_theme = 'onedark'
+"let g:airline_theme = 'papercolor'
 
 " Enable branch
 let g:airline#extensions#branch#enabled = 1
@@ -442,6 +442,16 @@ let g:tagbar_left = 0
 
 " Use single clicks
 let g:tagbar_singleclick = 1
+
+" }}}
+" ========== YouCompleteMe {{{
+
+" Set python interpreter used by ycmd. We point it to a fake one that launches
+" this within a Docker container. The interpreter name must end in 'python'
+"let g:ycm_server_python_interpreter = 'ymcd-python'
+
+" Set global configuration file location
+"let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
 
 " }}}
 " ========== Buffer navigation {{{
