@@ -27,6 +27,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-fugitive'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'godlygeek/tabular'
+Plugin 'ycm-core/YouCompleteMe'
 
 " List of colorschemes
 "Plugin 'sjl/badwolf'
@@ -45,10 +46,10 @@ filetype plugin indent on
 " Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 " If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 " (see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (has("nvim"))
-    " For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
+"if (has("nvim"))
+"    " For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+"    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"endif
 " For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
 " Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
 " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
@@ -62,7 +63,6 @@ syntax enable
 " Set background (determines what colors are used by some colorschemes)
 set background=light
 
-"let ayucolor="light"
 colorscheme solarized
 
 " }}}
@@ -127,8 +127,8 @@ set sidescroll=2
 " Buffer to maintain during horizontal scrolling
 set sidescrolloff=4
 
-" Highlight current line
-set nocursorline
+" Configure spell check
+set spelllang=en_us
 
 " }}}
 " ========== Spaces and Tabs {{{
@@ -149,7 +149,7 @@ set shiftwidth=4
 set smarttab
 
 " Show special characters like tabs and trailing spaces
-set listchars=tab:\|\ ,trail:·,extends:#,nbsp:·,space:·,eol:¬
+set listchars=tab:\|\ ,trail:·,precedes:,extends:,nbsp:·,space:·,eol:¬
 
 " Toggle list
 nnoremap <silent> <leader>l :set list!<CR>
@@ -167,6 +167,17 @@ set copyindent
 set cinkeys-=0#
 
 " }}}
+" ========== Cursor {{{
+
+" Change cursor based on mode
+"let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+"let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+
+" Highlight current line
+set cursorline
+
+" }}}
 " ========== Filetype {{{
 
 " Enable loading plugin files based on filetype
@@ -179,8 +190,8 @@ filetype indent on
 " ========== Autocmd {{{
 
 " Toggle cursorline on insert/normal modes
-"autocmd InsertEnter * set nocursorline
-"autocmd InsertLeave * set cursorline
+autocmd InsertEnter * set nocursorline
+autocmd InsertLeave * set cursorline
 
 " Don't expand tabs for makefiles
 autocmd FileType make setlocal noexpandtab
@@ -218,9 +229,7 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Search using ripgrep
-if exists(':Rg')
-    nnoremap <leader>/ :Rg 
-endif
+nnoremap <leader>/ :Rg 
 
 " }}}
 " ========== Ctags {{{
@@ -249,7 +258,10 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Reload .vimrc file
-nnoremap <leader>s :so $MYVIMRC<CR>
+nnoremap <leader>so :so $MYVIMRC<CR>
+
+" Toggle spell check
+nnoremap <leader>sp :set spell!<CR>
 
 " Reload current file
 nnoremap <leader>e :e!<CR>
@@ -291,6 +303,10 @@ nnoremap <C-w>z <C-w><Bar><C-w>_
 " Sort lines in paragraph
 nnoremap <leader>i vip:sort<CR>
 
+" Tabularize
+nnoremap <leader>tab :Tabularize /
+vnoremap <leader>tab :Tabularize /
+
 " }}}
 " ========== Tab Creation and Navigation {{{
 
@@ -322,6 +338,8 @@ let g:ctrlp_working_path_mode = 'rwa'
 "    \ 'AcceptSelection("t")': ['<cr>'],
 "    \ }
 
+let g:ctrlp_custom_ignore = {'dir': '\v(refroot|venv|build)$'}
+
 " }}}
 " ========== NERDTree {{{
 
@@ -334,10 +352,16 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['\.d$', '\.o$', '\.tsk$', '\.pyc$', '__pycache__']
 
 " Set window size on open
-let g:NERDTreeWinSize = 45
+let g:NERDTreeWinSize = 40
 
 " Single click to open directories, double click for files
 let g:NERDTreeMouseMode = 3
+
+" Cursorline withing NERDTree window
+let g:NERDTreeHighlightCursorline = 0
+
+" Collapse directories with only a single child directory
+let g:NERDTreeCascadeSingleChildDir = 0
 
 " }}}
 " ========== Airline {{{
@@ -345,6 +369,8 @@ let g:NERDTreeMouseMode = 3
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+"let g:airline_theme = 'papercolor'
 
 " Enable branch
 let g:airline#extensions#branch#enabled = 1
@@ -382,7 +408,7 @@ let g:airline_symbols.linenr = ''
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_symbols.branch = ''
-let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'P'
 let g:airline_symbols.readonly = ''
 
 " Shortform mode text
@@ -416,6 +442,16 @@ let g:tagbar_left = 0
 
 " Use single clicks
 let g:tagbar_singleclick = 1
+
+" }}}
+" ========== YouCompleteMe {{{
+
+" Set python interpreter used by ycmd. We point it to a fake one that launches
+" this within a Docker container. The interpreter name must end in 'python'
+"let g:ycm_server_python_interpreter = 'ymcd-python'
+
+" Set global configuration file location
+"let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
 
 " }}}
 " ========== Buffer navigation {{{
