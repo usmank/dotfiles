@@ -28,6 +28,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'godlygeek/tabular'
 Plugin 'ycm-core/YouCompleteMe'
+Plugin 'Yggdroot/IndentLine'
 
 " List of colorschemes
 "Plugin 'sjl/badwolf'
@@ -425,6 +426,12 @@ let g:airline_mode_map = {
       \ 'S'  : 'S',
       \ '' : 'S',
       \ }
+" }}}
+" ========== IndentLine {{{
+let g:indentLine_char = ''
+let g:indentLine_first_char = ''
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 7
 " }}}
 " ========== Tagbar {{{
 
