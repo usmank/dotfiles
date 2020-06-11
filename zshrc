@@ -90,6 +90,7 @@ alias extproxy='http_proxy=http://proxy.bloomberg.com:81 https_proxy=http://prox
 alias tmux='tmux -2'
 alias tmx='tmux -2 attach-session || tmux -2'
 alias fdl5='dev feed-linxdev05'
+alias fdl6='dev feed-linxdev06'
 alias grep='grep --colour=auto'
 alias hs='history | grep'
 alias nt='vim +NERDTreeTabsToggle'

@@ -27,7 +27,6 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-fugitive'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'godlygeek/tabular'
-Plugin 'ycm-core/YouCompleteMe'
 Plugin 'Yggdroot/IndentLine'
 
 " List of colorschemes
@@ -449,16 +448,6 @@ let g:tagbar_left = 0
 
 " Use single clicks
 let g:tagbar_singleclick = 1
-
-" }}}
-" ========== YouCompleteMe {{{
-
-" Set python interpreter used by ycmd. We point it to a fake one that launches
-" this within a Docker container. The interpreter name must end in 'python'
-"let g:ycm_server_python_interpreter = 'ymcd-python'
-
-" Set global configuration file location
-"let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
 
 " }}}
 " ========== Buffer navigation {{{
