@@ -27,7 +27,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-fugitive'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'godlygeek/tabular'
-Plugin 'Yggdroot/IndentLine'
+"Plugin 'Yggdroot/IndentLine'
 
 " List of colorschemes
 "Plugin 'sjl/badwolf'
@@ -36,9 +36,12 @@ Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'joshdick/onedark.vim'
 Plugin 'ayu-theme/ayu-vim'
+Plugin 'chriskempson/base16-vim'
 
 call vundle#end()
 filetype plugin indent on
+
+set rtp+=~/.vim/
 
 " }}}
 " ========== Colorscheme {{{
@@ -65,11 +68,14 @@ set background=dark
 
 colorscheme onedark
 
+set guifont=Roboto\ Mono\ for\ Powerline:h16
+
 " }}}
 " ========== Leader Key {{{
 
-" Set leader key to comma
-let mapleader=","
+" Set leader key
+nnoremap <space> <nop>
+let mapleader=" "
 
 " }}}
 " ========== General {{{
@@ -96,7 +102,7 @@ set laststatus=2
 set mouse=a
 
 " Fix mouse scroll in columns past 223
-if has('mouse_sgr')
+if !has('nvim') && has('mouse_sgr')
     set ttymouse=sgr
 endif
 
@@ -130,6 +136,9 @@ set sidescrolloff=4
 " Configure spell check
 set spelllang=en_us
 
+set undodir=~/.vimundo
+set undofile
+
 " }}}
 " ========== Spaces and Tabs {{{
 
@@ -149,7 +158,7 @@ set shiftwidth=4
 set smarttab
 
 " Show special characters like tabs and trailing spaces
-set listchars=tab:\|\ ,trail:·,precedes:,extends:,nbsp:·,space:·,eol:¬
+set listchars=tab:\|\•,trail:•,precedes:‹,extends:›,nbsp:•,space:•,eol:¬
 
 " Toggle list
 nnoremap <silent> <leader>l :set list!<CR>
@@ -269,9 +278,6 @@ nnoremap <leader>e :e!<CR>
 " Toggle paste mode
 nnoremap <leader>p :set paste!<CR>
 
-" Toggle Gundo
-nnoremap <silent> <leader>u :GundoToggle<CR>
-
 " Save
 nnoremap <leader>w :w<CR>
 
@@ -307,12 +313,11 @@ nnoremap <leader>i vip:sort<CR>
 nnoremap <leader>tab :Tabularize /
 vnoremap <leader>tab :Tabularize /
 
+" Toggle IndentLines
+"nnoremap <silent> <leader>m :IndentLinesToggle<CR>
+
 " }}}
 " ========== Tab Creation and Navigation {{{
-
-" Tab creation
-nnoremap <leader>te :tabedit
-nnoremap <leader>tm :tabmove
 
 " Tab navigation
 nnoremap t gt
@@ -400,15 +405,15 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tagbar#enabled = 0
 
 " Unicode symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 let g:airline_symbols.linenr = ''
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_symbols.branch = ''
-let g:airline_symbols.paste = 'P'
+let g:airline_symbols.paste = 'PASTE'
 let g:airline_symbols.readonly = ''
 
 " Shortform mode text
@@ -440,8 +445,8 @@ nnoremap <silent> <leader>tc :TagbarClose<CR>
 " Focus tagbar on open
 let g:tagbar_autofocus = 1
 
-" Don't close upon jumping to a tag
-let g:tagbar_autoclose = 0
+" Close upon jumping to a tag
+let g:tagbar_autoclose = 1
 
 " Open window on right side
 let g:tagbar_left = 0
