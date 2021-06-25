@@ -76,6 +76,15 @@ colorscheme one
 set guifont=Input\ Mono:h18
 
 " }}}
+" ========== Highlights {{{
+
+" Spell checker highlighting
+highlight SpellBad ctermbg=211 guibg=#ffe5e3 gui=none cterm=none
+highlight SpellCap ctermbg=159 guibg=#e3efff gui=none cterm=none
+highlight SpellLocal gui=none cterm=none
+highlight SpellRare gui=none cterm=none
+
+" }}}
 " ========== Leader Key {{{
 
 " Set leader key
