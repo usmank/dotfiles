@@ -36,6 +36,12 @@ export EDITOR=$(which vim)
 export KEYTIMEOUT=1
 # ------------------------------------------------------------------------------
 
+# --- FZF ------------------------------------------------------------------
+export FZF_DEFAULT_OPTS="--reverse --border=sharp --height=40% --info=inline --prompt='❯ ' --pointer='➔' --marker='•' --color=bw"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# ------------------------------------------------------------------------------
+
 # --- PROMPT -------------------------------------------------------------------
 # Custom prompt colors
 autoload -Uz colors && colors
@@ -60,7 +66,7 @@ git_prompt() {
   branch_name="$(__git_ps1 %s)"
 
   if [[ -n $branch_name ]]; then
-    printf "%s" "%{$fg[black]%}$1%{$fg[black]%}$branch_name "
+    printf "%s" "%{$fg[magenta]%}$1%{$fg[magenta]%}$branch_name "
   fi
 
   return
@@ -71,11 +77,11 @@ BG=$'%{\e[48;5;8m%}'
 BRIGHT_BG=$'%{\e[48;5;4m%}'
 
 PROMPT="${NEWLINE}"
-PROMPT+=$'${BG} %(?.%{$fg[green]%}.%{$fg[red]%})● %{$reset_color%}'
-PROMPT+=$'${BG}%{$fg[blue]%}%~ %{$reset_color%}'
-PROMPT+=$'${BRIGHT_BG}%{$fg_bold[black]%}%{$reset_color%}'
-PROMPT+=$'${BRIGHT_BG}$(git_prompt "  ")%{$reset_color%}'
-PROMPT+=$'%{$fg[blue]%}%{$reset_color%} '
+PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})▌%{$reset_color%}'
+PROMPT+=$'%{$fg[blue]%}%~ %{$reset_color%}'
+#PROMPT+=$'${BRIGHT_BG}%{$fg_bold[black]%}%{$reset_color%}'
+PROMPT+=$'$(git_prompt " ")%{$reset_color%}'
+#PROMPT+=$'%{$fg_bold[white]%}❯%{$reset_color%} '
 
 # ------------------------------------------------------------------------------
 

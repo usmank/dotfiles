@@ -24,19 +24,23 @@ Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'sheerun/vim-polyglot'
-Plugin 'tpope/vim-fugitive'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'godlygeek/tabular'
+"Plugin 'tpope/vim-fugitive'
 "Plugin 'Yggdroot/IndentLine'
 
 " List of colorschemes
 "Plugin 'sjl/badwolf'
 "Plugin 'baskerville/bubblegum'
 Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
 Plugin 'joshdick/onedark.vim'
-Plugin 'ayu-theme/ayu-vim'
+Plugin 'rakr/vim-one'
+"Plugin 'ayu-theme/ayu-vim'
 Plugin 'chriskempson/base16-vim'
+"Plugin 'drewtempelmeyer/palenight.vim'
+Plugin 'reedes/vim-colors-pencil'
+Plugin 'kyoz/purify', {'rtp': 'vim'}
 
 call vundle#end()
 filetype plugin indent on
@@ -64,11 +68,12 @@ endif
 syntax enable
 
 " Set background (determines what colors are used by some colorschemes)
-set background=dark
+set background=light
 
-colorscheme onedark
+let g:one_allow_italics = 1
+colorscheme one
 
-set guifont=Roboto\ Mono\ for\ Powerline:h16
+set guifont=Iosevka:h18
 
 " }}}
 " ========== Leader Key {{{
@@ -136,8 +141,10 @@ set sidescrolloff=4
 " Configure spell check
 set spelllang=en_us
 
-set undodir=~/.vimundo
-set undofile
+set splitright
+
+"set undodir=~/.vimundo
+"set undofile
 
 " }}}
 " ========== Spaces and Tabs {{{
@@ -291,6 +298,8 @@ nnoremap ` '
 " Treat wrapped lines as multiple lines
 nnoremap j gj
 nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 
 " Swap 0 and ^
 "nnoremap 0 ^
@@ -371,6 +380,8 @@ let g:NERDTreeCascadeSingleChildDir = 0
 " }}}
 " ========== Airline {{{
 
+"let g:airline_theme = 'purify'
+
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -432,8 +443,8 @@ let g:airline_mode_map = {
       \ }
 " }}}
 " ========== IndentLine {{{
-let g:indentLine_char = ''
-let g:indentLine_first_char = ''
+let g:indentLine_char = '┆'
+let g:indentLine_first_char = '┆'
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 7
 " }}}
