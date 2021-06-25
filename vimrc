@@ -73,7 +73,7 @@ set background=light
 let g:one_allow_italics = 1
 colorscheme one
 
-set guifont=Iosevka:h18
+set guifont=Input\ Mono:h18
 
 " }}}
 " ========== Leader Key {{{
