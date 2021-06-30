@@ -76,15 +76,6 @@ colorscheme one
 set guifont=Input\ Mono:h18
 
 " }}}
-" ========== Highlights {{{
-
-" Spell checker highlighting
-highlight SpellBad ctermbg=211 guibg=#ffe5e3 gui=none cterm=none
-highlight SpellCap ctermbg=159 guibg=#e3efff gui=none cterm=none
-highlight SpellLocal gui=none cterm=none
-highlight SpellRare gui=none cterm=none
-
-" }}}
 " ========== Leader Key {{{
 
 " Set leader key
@@ -479,6 +470,18 @@ let g:tagbar_singleclick = 1
 
 nnoremap <leader>bl :buffers<CR>
 nnoremap <leader>bv :vert sb
+
+" }}}
+" ========== Highlights {{{
+
+" Spell checker highlighting
+highlight SpellBad ctermbg=211 guibg=#ffe5e3 gui=none cterm=none
+highlight SpellCap ctermbg=159 guibg=#e3efff gui=none cterm=none
+highlight SpellLocal gui=none cterm=none
+highlight SpellRare gui=none cterm=none
+
+" Search highlighting
+highlight Search term=reverse ctermfg=255 ctermbg=230 guifg=#525252 guibg=#ffe1a1
 
 " }}}
 " ========== Custom Functions {{{
