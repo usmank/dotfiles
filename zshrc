@@ -31,7 +31,7 @@ alias help=run-help
 # ------------------------------------------------------------------------------
 
 # --- General ------------------------------------------------------------------
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/bin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/bin:/usr/local/opt/llvm/bin:$PATH"
 export EDITOR=$(which vim)
 export KEYTIMEOUT=1
 # ------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ export FZF_DEFAULT_OPTS="--reverse --border=sharp --height=40% --info=inline --p
 autoload -Uz colors && colors
 
 # Show '*' for unstaged and a '+' for staged changes
-GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWDIRTYSTATE=
 # Show '$' if something is stashed
 GIT_PS1_SHOWSTASHSTATE=
 # Show '%' if their are untracked files
@@ -66,7 +66,8 @@ git_prompt() {
   branch_name="$(__git_ps1 %s)"
 
   if [[ -n $branch_name ]]; then
-    printf "%s" "%{$fg[magenta]%}$1%{$fg[magenta]%}$branch_name "
+    #printf "%s" " $branch_name "
+    printf "%s" "$branch_name "
   fi
 
   return
@@ -77,10 +78,11 @@ BG=$'%{\e[48;5;8m%}'
 BRIGHT_BG=$'%{\e[48;5;4m%}'
 
 PROMPT="${NEWLINE}"
-PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})▌%{$reset_color%}'
-PROMPT+=$'%{$fg[blue]%}%~ %{$reset_color%}'
+#PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})▌%{$reset_color%}'
+PROMPT+=$'%F{blue}%B %~%b %{$reset_color%}'
+PROMPT+=$'%F{magenta}$(git_prompt)%{$reset_color%}'
+PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})❯%k%f '
 #PROMPT+=$'${BRIGHT_BG}%{$fg_bold[black]%}%{$reset_color%}'
-PROMPT+=$'$(git_prompt " ")%{$reset_color%}'
 #PROMPT+=$'%{$fg_bold[white]%}❯%{$reset_color%} '
 
 # ------------------------------------------------------------------------------
@@ -101,6 +103,9 @@ alias grep='grep --colour=auto'
 alias hs='history | grep'
 alias nt='vim +NERDTreeTabsToggle'
 alias retval='echo $?'
+alias dockerscons='~/code/docker/docker-scons'
+alias dockermake='~/code/docker/docker-make'
+alias vim='nvim'
 # ------------------------------------------------------------------------------
 
 # --- Functions ----------------------------------------------------------------

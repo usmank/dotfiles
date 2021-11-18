@@ -19,28 +19,25 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
+Plugin 'ctrlpvim/ctrlp.vim'
+"Plugin 'majutsushi/tagbar'
+Plugin 'preservim/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'sheerun/vim-polyglot'
-Plugin 'jremmen/vim-ripgrep'
 Plugin 'godlygeek/tabular'
-"Plugin 'tpope/vim-fugitive'
-"Plugin 'Yggdroot/IndentLine'
+"Plugin 'Yggdroot/indentLine'
+"Plugin 'neovim/nvim-lspconfig'
+Plugin 'lukas-reineke/indent-blankline.nvim'
+"Plugin 'nvim-lua/plenary.nvim'
+"Plugin 'nvim-telescope/telescope.nvim'
 
 " List of colorschemes
-"Plugin 'sjl/badwolf'
-"Plugin 'baskerville/bubblegum'
 Plugin 'NLKNguyen/papercolor-theme'
-"Plugin 'altercation/vim-colors-solarized'
 Plugin 'joshdick/onedark.vim'
 Plugin 'rakr/vim-one'
-"Plugin 'ayu-theme/ayu-vim'
 Plugin 'chriskempson/base16-vim'
-"Plugin 'drewtempelmeyer/palenight.vim'
 Plugin 'reedes/vim-colors-pencil'
-Plugin 'kyoz/purify', {'rtp': 'vim'}
 
 call vundle#end()
 filetype plugin indent on
@@ -68,7 +65,7 @@ endif
 syntax enable
 
 " Set background (determines what colors are used by some colorschemes)
-set background=light
+set background=dark
 
 let g:one_allow_italics = 1
 colorscheme one
@@ -191,7 +188,7 @@ set cinkeys-=0#
 "let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 " Highlight current line
-set nocursorline
+set cursorline
 
 " }}}
 " ========== Filetype {{{
@@ -243,9 +240,6 @@ map <silent> <leader><space> :nohlsearch<CR>
 " Visual mode search
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
-
-" Search using ripgrep
-nnoremap <leader>/ :Rg 
 
 " }}}
 " ========== Ctags {{{
@@ -323,7 +317,7 @@ nnoremap <leader>tab :Tabularize /
 vnoremap <leader>tab :Tabularize /
 
 " Toggle IndentLines
-"nnoremap <silent> <leader>m :IndentLinesToggle<CR>
+nnoremap <silent> <leader>m :IndentLinesToggle<CR>
 
 " }}}
 " ========== Tab Creation and Navigation {{{
@@ -420,7 +414,7 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-let g:airline_symbols.linenr = ''
+let g:airline_symbols.linenr = ' '
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_symbols.branch = ''
@@ -443,10 +437,9 @@ let g:airline_mode_map = {
       \ }
 " }}}
 " ========== IndentLine {{{
-let g:indentLine_char = '┆'
-let g:indentLine_first_char = '┆'
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_setColors = 7
+"let g:indentLine_char = '┆'
+"let g:indentLine_first_char = '┆'
+"let g:indentLine_showFirstIndentLevel = 0
 " }}}
 " ========== Tagbar {{{
 
@@ -475,10 +468,10 @@ nnoremap <leader>bv :vert sb
 " ========== Highlights {{{
 
 " Spell checker highlighting
-highlight SpellBad ctermbg=211 guibg=#ffe5e3 gui=none cterm=none
-highlight SpellCap ctermbg=159 guibg=#e3efff gui=none cterm=none
-highlight SpellLocal gui=none cterm=none
-highlight SpellRare gui=none cterm=none
+"highlight SpellBad ctermfg=211 guifg=#ffe5e3 gui=none cterm=none
+"highlight SpellCap ctermfg=159 guifg=#e3efff gui=none cterm=none
+"highlight SpellLocal gui=none cterm=none
+"highlight SpellRare gui=none cterm=none
 
 " Search highlighting
 highlight Search term=reverse ctermfg=255 ctermbg=230 guifg=#525252 guibg=#ffe1a1
@@ -545,6 +538,20 @@ function! MyTabLine()
 
     return s
 endfunction
+
+" }}}
+" ========== LSP {{{
+
+"lua << EOF
+"
+"local nvim_lsp = require('lspconfig')
+"
+"local servers = { 'clangd', 'pyright' }
+"for _, lsp in ipairs(servers) do
+"  nvim_lsp[lsp].setup {}
+"end
+"
+"EOF
 
 " }}}
 
