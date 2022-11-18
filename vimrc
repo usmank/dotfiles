@@ -87,8 +87,8 @@ syntax enable
 "})
 "END
 
-set background=dark
-colorscheme tokyonight-moon
+set background=light
+colorscheme tokyonight-day
 
 set guifont=Input\ Mono:h18
 
