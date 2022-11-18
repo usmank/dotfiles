@@ -1,4 +1,11 @@
-# --- Lines configured by zsh-newuser-install ----------------------------------
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# --- Lines configured by zsh-newuser-install ---------------------------------
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
@@ -11,38 +18,48 @@ zstyle :compinstall filename '/home/usmank/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
-# --- Tab completion and history -----------------------------------------------
+# --- Tab completion and history ----------------------------------------------
 # Tab completion menu
 zstyle ':completion:*' menu select
 
 # Ignore duplicates
 setopt HIST_IGNORE_DUPS
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
-# --- Help command -------------------------------------------------------------
+# --- Help command ------------------------------------------------------------
 autoload -Uz run-help
 autoload -Uz run-help-git
 autoload -Uz run-help-svn
 autoload -Uz run-help-svk
 #unalias run-help
 alias help=run-help
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
-# --- General ------------------------------------------------------------------
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/bin:/usr/local/opt/llvm/bin:$PATH"
-export EDITOR=$(which vim)
+# --- General -----------------------------------------------------------------
+export PATH="/usr/local/bin:/usr/local/opt/llvm/bin:$PATH"
+export EDITOR=$(which nvim)
 export KEYTIMEOUT=1
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
-# --- FZF ------------------------------------------------------------------
-export FZF_DEFAULT_OPTS="--reverse --border=sharp --height=40% --info=inline --prompt='❯ ' --pointer='➔' --marker='•' --color=bw"
+# --- FZF ---------------------------------------------------------------------
+# Determines search program for fzf
+if type ag &> /dev/null; then
+    export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g ""'
+fi
+
+# Prefer rg over ag
+if type rg &> /dev/null; then
+    export FZF_DEFAULT_COMMAND='rg --files --hidden'
+fi
+
+export FZF_DEFAULT_OPTS="--no-mouse --reverse --border=sharp --height=40% --info=inline --prompt='❯ ' --pointer='➔' --marker='•' --color=bw"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
-# --- PROMPT -------------------------------------------------------------------
+# --- PROMPT ------------------------------------------------------------------
 # Custom prompt colors
 autoload -Uz colors && colors
 
@@ -79,8 +96,9 @@ BRIGHT_BG=$'%{\e[48;5;4m%}'
 
 PROMPT="${NEWLINE}"
 #PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})▌%{$reset_color%}'
-PROMPT+=$'%F{blue}%B %~%b %{$reset_color%}'
+PROMPT+=$'%F{blue}%B%~%b %{$reset_color%}'
 PROMPT+=$'%F{magenta}$(git_prompt)%{$reset_color%}'
+PROMPT+="${NEWLINE}"
 PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})❯%k%f '
 #PROMPT+=$'${BRIGHT_BG}%{$fg_bold[black]%}%{$reset_color%}'
 #PROMPT+=$'%{$fg_bold[white]%}❯%{$reset_color%} '
@@ -92,20 +110,22 @@ alias ls='gls --color=auto'
 alias l='ls -lFGh --group-directories-first'
 alias la='l -a'
 alias ltr='l -tr'
+alias tl='tree | less'
 alias zshrc='source ~/.zshrc'
 alias devproxy='http_proxy=http://bproxy.tdmz1.bloomberg.com:80 https_proxy=http://bproxy.tdmz1.bloomberg.com:80'
 alias extproxy='http_proxy=http://proxy.bloomberg.com:81 https_proxy=http://proxy.bloomberg.com:81'
-alias tmux='tmux -2'
+#alias tmux='tmux -2'
 alias tmx='tmux -2 attach-session || tmux -2'
-alias fdl5='dev feed-linxdev05'
-alias fdl6='dev feed-linxdev06'
+#alias fdl5='dev feed-linxdev05'
+#alias fdl6='dev feed-linxdev06'
+#alias fdl663='dev fcldev-ob-663'
+#alias fd22='dev feed-dev22'
 alias grep='grep --colour=auto'
 alias hs='history | grep'
-alias nt='vim +NERDTreeTabsToggle'
-alias retval='echo $?'
 alias dockerscons='~/code/docker/docker-scons'
 alias dockermake='~/code/docker/docker-make'
 alias vim='nvim'
+alias ctags='/opt/homebrew/bin/ctags'
 # ------------------------------------------------------------------------------
 
 # --- Functions ----------------------------------------------------------------

@@ -15,29 +15,40 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" List of pluings
+" General
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'majutsushi/tagbar'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 Plugin 'preservim/tagbar'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'kyazdani42/nvim-tree.lua'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'godlygeek/tabular'
-"Plugin 'Yggdroot/indentLine'
-"Plugin 'neovim/nvim-lspconfig'
 Plugin 'lukas-reineke/indent-blankline.nvim'
-"Plugin 'nvim-lua/plenary.nvim'
-"Plugin 'nvim-telescope/telescope.nvim'
+Plugin 'file:///Users/ukhan47/code/note-vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'nvim-treesitter/nvim-treesitter'
 
-" List of colorschemes
+" Language server and autocompletion
+"Plugin 'neovim/nvim-lspconfig'
+
+" Color schemes
 Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'joshdick/onedark.vim'
 Plugin 'rakr/vim-one'
-Plugin 'chriskempson/base16-vim'
-Plugin 'reedes/vim-colors-pencil'
+Plugin 'base16-project/base16-vim'
+Plugin 'patstockwell/vim-monokai-tasty'
+Plugin 'yorik1984/newpaper.nvim'
+"Plugin 'jacoborus/tender.vim'
+Plugin 'file:///Users/ukhan47/code/tender.vim'
+Plugin 'bluz71/vim-nightfly-guicolors'
+Plugin 'rktjmp/lush.nvim'
+Plugin 'alaric/nortia.nvim'
+Plugin 'folke/tokyonight.nvim'
+
 
 call vundle#end()
 filetype plugin indent on
@@ -64,11 +75,20 @@ endif
 " Enable syntax highlighting
 syntax enable
 
-" Set background (determines what colors are used by some colorschemes)
-set background=dark
+"let g:one_allow_italics = 1
 
-let g:one_allow_italics = 1
-colorscheme one
+"lua << END
+"require("newpaper").setup({
+"    style = "dark",
+"    sidebars_contrast = {"NvimTree", "tagbar"},
+"    error_highlight = "bg",
+"    italic_strings = false,
+"    italic_functions = true,
+"})
+"END
+
+set background=dark
+colorscheme tokyonight-moon
 
 set guifont=Input\ Mono:h18
 
@@ -254,9 +274,9 @@ set tags=./tags,tags,../tags;
 "endif
 
 " Colors for tabline
-"highlight TabLine ctermfg=245 ctermbg=7 cterm=underline
-"highlight TabLineFill ctermbg=7 cterm=underline
-"highlight TabLineSel ctermfg=243 ctermbg=15 cterm=none
+"highlight TabLine guibg=red
+"highlight TabLineFill guibg=#000000 gui=underline
+"highlight TabLineSel guibg=#ffe5e3  guifg=colour4 gui=bold
 
 " }}}
 " ========== Keybinds {{{
@@ -319,6 +339,30 @@ vnoremap <leader>tab :Tabularize /
 " Toggle IndentLines
 nnoremap <silent> <leader>m :IndentLinesToggle<CR>
 
+" Increment and decrement
+nnoremap <leader>a <C-a>
+nnoremap <leader>x <C-x>
+
+" === Fugitive (Git) ===
+" Open Fugitive status window
+nnoremap <leader>gg :G<CR>
+
+" Open log in quickfix list
+nnoremap <leader>gl :GcLog<CR>
+
+" Git diff the current file
+nnoremap <leader>gd :Gvdiffsplit<CR>
+
+" Git blame the current file
+nnoremap <leader>gb :G blame<CR>
+
+" === fzf ===
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>o :BTags<CR>
+nnoremap <leader>O :Tags<CR>
+nnoremap <leader>/ :Rg 
+
 " }}}
 " ========== Tab Creation and Navigation {{{
 
@@ -335,7 +379,7 @@ noremap T gT
 "let g:ctrlp_cmd = 'CtrlPMixed'
 
 " Use the pwd instead of the directory of the current file.
-let g:ctrlp_working_path_mode = 'rwa'
+"let g:ctrlp_working_path_mode = 'rwa'
 
 " Resize the CtrlP window.
 "let g:ctrlp_match_window = 'bottom,order:btt,min:10,max:10,results:10'
@@ -346,41 +390,85 @@ let g:ctrlp_working_path_mode = 'rwa'
 "    \ 'AcceptSelection("t")': ['<cr>'],
 "    \ }
 
-let g:ctrlp_custom_ignore = {'dir': '\v(refroot|venv|build)$'}
+"let g:ctrlp_custom_ignore = {'dir': '\v(refroot|venv|build)$'}
 
 " }}}
-" ========== NERDTree {{{
+" ========== nvim-tree {{{
 
-nnoremap <silent> <leader>n :NERDTreeTabsToggle<CR>
+lua << END
+require("nvim-tree").setup({
+    view = {
+        adaptive_size = true,
+    },
+    renderer = {
+        indent_markers = {
+          enable = false,
+        },
+        icons = {
+            padding = "",
+            show = {
+                git = false,
+            },
+            glyphs = {
+                default = "",
+                symlink = "",
+                folder = {
+                    arrow_closed = "›",
+                    arrow_open = "⌄",
+                    default = "",
+                    open = "",
+                    empty = "",
+                    empty_open = "",
+                    symlink = "",
+                    symlink_open = "",
+                },
+            },
+        },
+    },
+    git = {
+        enable = false,
+    },
+})
+END
 
-" Disable header
-let g:NERDTreeMinimalUI = 1
+nnoremap <silent> <leader>n :NvimTreeToggle<CR>
 
-" Ignore certain extensions
-let g:NERDTreeIgnore = ['\.d$', '\.o$', '\.tsk$', '\.pyc$', '__pycache__']
-
-" Set window size on open
-let g:NERDTreeWinSize = 40
-
-" Single click to open directories, double click for files
-let g:NERDTreeMouseMode = 3
-
-" Cursorline withing NERDTree window
-let g:NERDTreeHighlightCursorline = 0
-
-" Collapse directories with only a single child directory
-let g:NERDTreeCascadeSingleChildDir = 0
+"nnoremap <silent> <leader>n :NERDTreeTabsToggle<CR>
+"
+"" Disable header
+"let g:NERDTreeMinimalUI = 1
+"
+"" Ignore certain extensions
+"let g:NERDTreeIgnore = ['\.d$', '\.o$', '\.tsk$', '\.pyc$', '__pycache__']
+"
+"" Set window size on open
+"let g:NERDTreeWinSize = 40
+"
+"" Single click to open directories, double click for files
+"let g:NERDTreeMouseMode = 3
+"
+"" Cursorline withing NERDTree window
+"let g:NERDTreeHighlightCursorline = 0
+"
+"" Collapse directories with only a single child directory
+"let g:NERDTreeCascadeSingleChildDir = 0
 
 " }}}
 " ========== Airline {{{
 
-"let g:airline_theme = 'purify'
+"let g:lightline = {
+"      \ 'colorscheme': 'one',
+"      \ }
+
+let g:airline_theme = 'one'
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
 "let g:airline_theme = 'papercolor'
+
+let g:airline_section_c = '%t %m'
 
 " Enable branch
 let g:airline#extensions#branch#enabled = 1
@@ -443,8 +531,7 @@ let g:airline_mode_map = {
 " }}}
 " ========== Tagbar {{{
 
-nnoremap <silent> <leader>to :TagbarOpen fj<CR>
-nnoremap <silent> <leader>tc :TagbarClose<CR>
+nnoremap <silent> <F8> :TagbarToggle<CR>
 
 " Focus tagbar on open
 let g:tagbar_autofocus = 1
@@ -459,22 +546,24 @@ let g:tagbar_left = 0
 let g:tagbar_singleclick = 1
 
 " }}}
-" ========== Buffer navigation {{{
-
-nnoremap <leader>bl :buffers<CR>
-nnoremap <leader>bv :vert sb
-
-" }}}
 " ========== Highlights {{{
 
 " Spell checker highlighting
-"highlight SpellBad ctermfg=211 guifg=#ffe5e3 gui=none cterm=none
-"highlight SpellCap ctermfg=159 guifg=#e3efff gui=none cterm=none
-"highlight SpellLocal gui=none cterm=none
-"highlight SpellRare gui=none cterm=none
+highlight SpellBad guibg=#ffe5e3 gui=none
+highlight SpellCap guibg=#e3efff gui=none
+highlight SpellLocal gui=none cterm=none
+highlight SpellRare gui=none cterm=none
 
 " Search highlighting
-highlight Search term=reverse ctermfg=255 ctermbg=230 guifg=#525252 guibg=#ffe1a1
+"highlight Search gui=bold term=reverse ctermfg=230 ctermbg=255 guifg=#1e1e1e guibg=#ffe1a1
+"highlight Search gui=reverse term=none ctermfg=255 ctermbg=230
+
+" Cusorline
+"highlight CursorLine guibg=#101010
+
+" Visual Mode Selection
+
+highlight Visual ctermbg=7 guibg=#eee8d5
 
 " }}}
 " ========== Custom Functions {{{
@@ -540,18 +629,86 @@ function! MyTabLine()
 endfunction
 
 " }}}
-" ========== LSP {{{
+" ========== treesitter {{{
 
-"lua << EOF
-"
-"local nvim_lsp = require('lspconfig')
-"
-"local servers = { 'clangd', 'pyright' }
-"for _, lsp in ipairs(servers) do
-"  nvim_lsp[lsp].setup {}
-"end
-"
-"EOF
+lua << END
+require('nvim-treesitter.configs').setup({
+    -- A list of parser names, or "all"
+    ensure_installed = {
+        "bash",
+        "c",
+        "clojure",
+        "cmake",
+        "comment",
+        "cpp",
+        "dockerfile",
+        "dot",
+        "fish",
+        "fortran",
+        "go",
+        "graphql",
+        "haskell",
+        "html",
+        "java",
+        "javascript",
+        "jsdoc",
+        "json",
+        "json5",
+        "latex",
+        "llvm",
+        "markdown",
+        "markdown_inline",
+        "ninja",
+        "ocaml",
+        "perl",
+        "python",
+        "query",
+        "regex",
+        "ruby",
+        "rust",
+        "scheme",
+        "toml",
+        "typescript",
+        "vim",
+        "yaml" },
+
+    -- Install parsers synchronously (only applied to `ensure_installed`)
+    sync_install = false,
+
+    -- Automatically install missing parsers when entering buffer
+    auto_install = true,
+
+    -- List of parsers to ignore installing (for "all")
+    ignore_install = {},
+
+    highlight = {
+        -- `false` will disable the whole extension
+        enable = true,
+
+        -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+        -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+        -- the name of the parser)
+        -- list of language that will be disabled
+        disable = {},
+
+        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+        -- Using this option may slow down your editor, and you may see some duplicate highlights.
+        -- Instead of true it can also be a list of languages
+        additional_vim_regex_highlighting = false,
+    },
+})
+END
+
+" }}}
+" ========== vim-rhubarb {{{
+
+let g:github_enterprise_urls = ['https://bbgithub.dev.bloomberg.com']
+
+" }}}
+" ========== fzf {{{
+
+let g:fzf_tags_command = 'ctags -R'
 
 " }}}
 
