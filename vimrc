@@ -88,7 +88,7 @@ syntax enable
 "END
 
 set background=light
-colorscheme tokyonight-day
+colorscheme base16-solarized-light
 
 set guifont=Input\ Mono:h18
 
@@ -208,7 +208,7 @@ set cinkeys-=0#
 "let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
 " Highlight current line
-set cursorline
+set nocursorline
 
 " }}}
 " ========== Filetype {{{
@@ -555,14 +555,13 @@ highlight SpellLocal gui=none cterm=none
 highlight SpellRare gui=none cterm=none
 
 " Search highlighting
-"highlight Search gui=bold term=reverse ctermfg=230 ctermbg=255 guifg=#1e1e1e guibg=#ffe1a1
+highlight Search gui=bold term=reverse ctermfg=230 ctermbg=255 guifg=#1e1e1e guibg=#ffe1a1
 "highlight Search gui=reverse term=none ctermfg=255 ctermbg=230
 
-" Cusorline
+" Cursorline
 "highlight CursorLine guibg=#101010
 
 " Visual Mode Selection
-
 highlight Visual ctermbg=7 guibg=#eee8d5
 
 " }}}
