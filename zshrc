@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # --- Lines configured by zsh-newuser-install ---------------------------------
 HISTFILE=~/.histfile
 HISTSIZE=10000
@@ -33,12 +26,12 @@ autoload -Uz run-help
 autoload -Uz run-help-git
 autoload -Uz run-help-svn
 autoload -Uz run-help-svk
-#unalias run-help
+HELPDIR=$(command brew --prefix)/share/zsh/help
 alias help=run-help
 # -----------------------------------------------------------------------------
 
 # --- General -----------------------------------------------------------------
-export PATH="/usr/local/bin:/usr/local/opt/llvm/bin:$PATH"
+export PATH="${HOME}/bin:/opt/homebrew/opt/llvm/bin/:/usr/local/bin:$PATH"
 export EDITOR=$(which nvim)
 export KEYTIMEOUT=1
 # -----------------------------------------------------------------------------
@@ -83,23 +76,24 @@ git_prompt() {
   branch_name="$(__git_ps1 %s)"
 
   if [[ -n $branch_name ]]; then
-    #printf "%s" " $branch_name "
-    printf "%s" "$branch_name "
+    printf "%s" " $branch_name "
+    #printf "%s" "$branch_name "
   fi
 
   return
 }
 
 NEWLINE=$'\n'
-BG=$'%{\e[48;5;8m%}'
+BG=$'%{\e[48;5;4m%}'
 BRIGHT_BG=$'%{\e[48;5;4m%}'
 
 PROMPT="${NEWLINE}"
 #PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})▌%{$reset_color%}'
-PROMPT+=$'%F{blue}%B%~%b %{$reset_color%}'
-PROMPT+=$'%F{magenta}$(git_prompt)%{$reset_color%}'
+#PROMPT+=$'%F{blue}%B%~%b %{$reset_color%}'
+PROMPT+=$'%F{blue}%B%~ %b%{$reset_color%}'
+PROMPT+=$'%F{cyan%}$(git_prompt)%{$reset_color%}'
 PROMPT+="${NEWLINE}"
-PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})❯%k%f '
+PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})%k%f '
 #PROMPT+=$'${BRIGHT_BG}%{$fg_bold[black]%}%{$reset_color%}'
 #PROMPT+=$'%{$fg_bold[white]%}❯%{$reset_color%} '
 
@@ -116,22 +110,23 @@ alias devproxy='http_proxy=http://bproxy.tdmz1.bloomberg.com:80 https_proxy=http
 alias extproxy='http_proxy=http://proxy.bloomberg.com:81 https_proxy=http://proxy.bloomberg.com:81'
 #alias tmux='tmux -2'
 alias tmx='tmux -2 attach-session || tmux -2'
-#alias fdl5='dev feed-linxdev05'
-#alias fdl6='dev feed-linxdev06'
-#alias fdl663='dev fcldev-ob-663'
-#alias fd22='dev feed-dev22'
 alias grep='grep --colour=auto'
 alias hs='history | grep'
 alias dockerscons='~/code/docker/docker-scons'
 alias dockermake='~/code/docker/docker-make'
 alias vim='nvim'
 alias ctags='/opt/homebrew/bin/ctags'
+alias dev='ssh FCLDEV-OB-549'
 # ------------------------------------------------------------------------------
 
 # --- Functions ----------------------------------------------------------------
 mkcd()
 {
-    mkdir $1 && cd $1
+    if [ ! -d $1 ]; then
+        mkdir $1
+    fi
+
+    cd $1
 }
 
 alert()
