@@ -1,20 +1,22 @@
 [user]
-  name = Usman Khan
-  email = usmankhan9190@gmail.com
+	name = Usman Khan
+    email = usmankhan9190@gmail.com
 
 [color]
-  ui = true
+    ui = true
 
 [alias]
-  co = checkout
-  br = branch
-  ci = commit
-  st = status
-  ctags = !.git/hooks/ctags
-  unstage = reset HEAD --
-
-[core]
-  editor = /usr/bin/vim
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+    lg = log --oneline --graph
+    ctags = !.git/hooks/ctags
+    amend = commit --amend
+    unstage = reset HEAD --
+    uncommit = reset --soft HEAD~1
 
 [init]
-  templatedir = ~/.git_template
+    defaultBranch = main
+[core]
+	editor = /opt/homebrew/bin/nvim
