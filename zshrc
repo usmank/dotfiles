@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # --- Lines configured by zsh-newuser-install ----------------------------------
 HISTFILE=~/.histfile
 HISTSIZE=10000
@@ -106,7 +99,7 @@ source <(fzf --zsh)
 alias l='ls -lFGh --color=auto --group-directories-first'
 alias la='l -a'
 alias ltr='l -tr'
-alias zshrc='source ~/.zshrc'
+alias zshrc='exec zsh'
 #alias tmux='tmux -2'
 #alias tmx='tmux -2 attach-session || tmux -2'
 #alias fdl5='dev feed-linxdev05'
@@ -136,7 +129,6 @@ mkcd()
 #}
 # ------------------------------------------------------------------------------
 
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
+  eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/oh-my-post-theme.toml)"
+fi
