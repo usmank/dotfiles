@@ -74,13 +74,22 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
         background = 'transparent'
         type = 'text'
         style = 'plain'
-#foreground_templates = ['{{ if gt .Code 0 }}red{{ end }}']
 
         [blocks.segments.properties]
             always_enabled = true
 
 [[blocks]]
     type = 'rprompt'
+
+    [[blocks.segments]]
+        type = "executiontime"
+        style = "plain"
+        template = " {{ .FormattedMs }} "
+
+        [blocks.segments.properties]
+            threshold = 500
+            style = "austin"
+            always_enabled = true
 
     [[blocks.segments]]
         template = '{{ .CurrentDate | date "15:04:05" }}'
