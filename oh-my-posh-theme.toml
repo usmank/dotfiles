@@ -75,6 +75,16 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     overflow = 'hide'
 
     [[blocks.segments]]
+        template = ' yo >{{ .Env.JOBS }}< '
+        foreground = 'black'
+        background = 'transparent'
+        type = 'text'
+        style = 'plain'
+
+        [blocks.segments.properties]
+            always_enabled = true
+
+    [[blocks.segments]]
         type = "executiontime"
         style = "plain"
         template = "{{ .FormattedMs }} "
