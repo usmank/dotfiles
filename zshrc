@@ -34,9 +34,52 @@ alias help=run-help
 export PATH="${HOME}/bin:/opt/homebrew/opt/llvm/bin/:/usr/local/bin:$PATH"
 export EDITOR=$(which nvim)
 export KEYTIMEOUT=1
+<<<<<<< Updated upstream
 # -----------------------------------------------------------------------------
 
 # --- FZF ---------------------------------------------------------------------
+=======
+export BAT_THEME="Catppuccin Latte"
+# -----------------------------------------------------------------------------
+
+# --- FZF ---------------------------------------------------------------------
+export FZF_DEFAULT_OPTS="--reverse \
+    --style=full \
+    --border=none \
+    --height=40% \
+    --info=inline \
+    --prompt=' ' \
+    --pointer='▌' \
+    --marker='•' \
+    # Catppuccin Latte
+    --color=fg:#4c4f69,bg:#eff1f5,hl:#40a02b,gutter:#eff1f5 \
+    --color=fg+:#4c4f69,bg+:#dce0e8,hl+:#40a02b \
+    --color=info:#1e66f5,prompt:#1e66f5,pointer:#1e66f5 \
+    --color=marker:#df8e1d,spinner:#40a02b,header:#179299"
+
+    # Gruvbox
+    # --color=fg:#ebdbb2,bg:#1d2021,hl:#fabd2f,gutter:#1d2021 \
+    # --color=fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f \
+    # --color=info:#83a598,prompt:#b8bb26,pointer:#fabd2f \
+    # --color=marker:#fabd2f,spinner:#b8bb26,header:#83a598"
+    # Solarized Light
+    # --color=fg:#657b83,bg:#fdf6e3,hl:#268bd2 \
+    # --color=fg+:#586e75,bg+:#eee8d5,hl+:#268bd2 \
+    # --color=info:#586e75,prompt:#2aa198,pointer:#268bd2 \
+    # --color=marker:#268bd2,spinner:#2aa198,header:#93a1a1 \
+    # --color=border:#eee8d5,gutter:#fdf6e3,scrollbar:#93a1a1 \
+    # --color=label:#586e75,query:#657b83"
+    # Catppuccin Mocha
+    # --color=fg:#cdd6f4,bg:#1e1e2e,hl:#f38ba8,gutter:#1e1e2e \
+    # --color=fg+:#cdd6f4,bg+:#313244,hl+:#f38ba8 \
+    # --color=info:#cba6f7,prompt:#89b4fa,pointer:#89b4fa \
+    # --color=marker:#89b4fa,spinner:#f5e0dc,header:#f2cdcd \
+    # --color=border:#585b70,label:#b4befe,query:#cdd6f4"
+
+export FZF_CTRL_T_OPTS="${FZF_DEFAULT_OPTS} \
+    --preview='bat -n --color=always {}'"
+
+>>>>>>> Stashed changes
 # Determines search program for fzf
 if type ag &> /dev/null; then
     export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g ""'
@@ -90,7 +133,12 @@ BRIGHT_BG=$'%{\e[48;5;4m%}'
 PROMPT="${NEWLINE}"
 #PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})▌%{$reset_color%}'
 #PROMPT+=$'%F{blue}%B%~%b %{$reset_color%}'
+<<<<<<< Updated upstream
 PROMPT+=$'%F{blue}%B%~ %b%{$reset_color%}'
+=======
+# PROMPT+=$'%F{black} %m %F{blue}%B%~ %b%{$reset_color%}'
+PROMPT+=$'%F{black}%m %F{blue}%B%~ %b%{$reset_color%}'
+>>>>>>> Stashed changes
 PROMPT+=$'%F{cyan%}$(git_prompt)%{$reset_color%}'
 PROMPT+="${NEWLINE}"
 PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})%k%f '
