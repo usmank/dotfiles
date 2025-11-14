@@ -34,11 +34,9 @@ alias help=run-help
 export PATH="${HOME}/bin:/opt/homebrew/opt/llvm/bin/:/usr/local/bin:$PATH"
 export EDITOR=$(which nvim)
 export KEYTIMEOUT=1
-<<<<<<< Updated upstream
 # -----------------------------------------------------------------------------
 
 # --- FZF ---------------------------------------------------------------------
-=======
 export BAT_THEME="Catppuccin Latte"
 # -----------------------------------------------------------------------------
 
@@ -79,7 +77,6 @@ export FZF_DEFAULT_OPTS="--reverse \
 export FZF_CTRL_T_OPTS="${FZF_DEFAULT_OPTS} \
     --preview='bat -n --color=always {}'"
 
->>>>>>> Stashed changes
 # Determines search program for fzf
 if type ag &> /dev/null; then
     export FZF_DEFAULT_COMMAND='ag -p ~/.gitignore -g ""'
@@ -89,8 +86,6 @@ fi
 if type rg &> /dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files --hidden'
 fi
-
-export FZF_DEFAULT_OPTS="--no-mouse --reverse --border=sharp --height=40% --info=inline --prompt='❯ ' --pointer='➔' --marker='•' --color=bw"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # -----------------------------------------------------------------------------
@@ -133,17 +128,11 @@ BRIGHT_BG=$'%{\e[48;5;4m%}'
 PROMPT="${NEWLINE}"
 #PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})▌%{$reset_color%}'
 #PROMPT+=$'%F{blue}%B%~%b %{$reset_color%}'
-<<<<<<< Updated upstream
-PROMPT+=$'%F{blue}%B%~ %b%{$reset_color%}'
-=======
 # PROMPT+=$'%F{black} %m %F{blue}%B%~ %b%{$reset_color%}'
 PROMPT+=$'%F{black}%m %F{blue}%B%~ %b%{$reset_color%}'
->>>>>>> Stashed changes
 PROMPT+=$'%F{cyan%}$(git_prompt)%{$reset_color%}'
 PROMPT+="${NEWLINE}"
 PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})%k%f '
-#PROMPT+=$'${BRIGHT_BG}%{$fg_bold[black]%}%{$reset_color%}'
-#PROMPT+=$'%{$fg_bold[white]%}❯%{$reset_color%} '
 
 # ------------------------------------------------------------------------------
 
