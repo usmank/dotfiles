@@ -32,12 +32,13 @@ alias help=run-help
 
 # --- General -----------------------------------------------------------------
 export PATH="${HOME}/bin:/opt/homebrew/opt/llvm/bin/:/usr/local/bin:$PATH"
-export EDITOR=$(which nvim)
+export EDITOR="$(which nvim)"
 export KEYTIMEOUT=1
+# export PAGER="$(which bat)"
 # -----------------------------------------------------------------------------
 
 # --- FZF ---------------------------------------------------------------------
-export BAT_THEME="Catppuccin Latte"
+export BAT_THEME="gruvbox-dark"
 # -----------------------------------------------------------------------------
 
 # --- FZF ---------------------------------------------------------------------
@@ -49,17 +50,16 @@ export FZF_DEFAULT_OPTS="--reverse \
     --prompt=' ' \
     --pointer='▌' \
     --marker='•' \
-    # Catppuccin Latte
-    --color=fg:#4c4f69,bg:#eff1f5,hl:#40a02b,gutter:#eff1f5 \
-    --color=fg+:#4c4f69,bg+:#dce0e8,hl+:#40a02b \
-    --color=info:#1e66f5,prompt:#1e66f5,pointer:#1e66f5 \
-    --color=marker:#df8e1d,spinner:#40a02b,header:#179299"
-
     # Gruvbox
-    # --color=fg:#ebdbb2,bg:#1d2021,hl:#fabd2f,gutter:#1d2021 \
-    # --color=fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f \
-    # --color=info:#83a598,prompt:#b8bb26,pointer:#fabd2f \
-    # --color=marker:#fabd2f,spinner:#b8bb26,header:#83a598"
+    --color=fg:#ebdbb2,bg:#1d2021,hl:#fabd2f,gutter:#1d2021 \
+    --color=fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f \
+    --color=info:#83a598,prompt:#b8bb26,pointer:#fabd2f \
+    --color=marker:#fabd2f,spinner:#b8bb26,header:#83a598"
+    # Catppuccin Latte
+    # --color=fg:#4c4f69,bg:#eff1f5,hl:#40a02b,gutter:#eff1f5 \
+    # --color=fg+:#4c4f69,bg+:#dce0e8,hl+:#40a02b \
+    # --color=info:#1e66f5,prompt:#1e66f5,pointer:#1e66f5 \
+    # --color=marker:#df8e1d,spinner:#40a02b,header:#179299"
     # Solarized Light
     # --color=fg:#657b83,bg:#fdf6e3,hl:#268bd2 \
     # --color=fg+:#586e75,bg+:#eee8d5,hl+:#268bd2 \
@@ -128,15 +128,15 @@ BRIGHT_BG=$'%{\e[48;5;4m%}'
 PROMPT="${NEWLINE}"
 #PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})▌%{$reset_color%}'
 #PROMPT+=$'%F{blue}%B%~%b %{$reset_color%}'
-# PROMPT+=$'%F{black} %m %F{blue}%B%~ %b%{$reset_color%}'
-PROMPT+=$'%F{black}%m %F{blue}%B%~ %b%{$reset_color%}'
+PROMPT+=$'%F{white} %m %F{blue}%B%~ %b%{$reset_color%}'
+# PROMPT+=$'%F{white}%m %F{blue}%B%~ %b%{$reset_color%}'
 PROMPT+=$'%F{cyan%}$(git_prompt)%{$reset_color%}'
 PROMPT+="${NEWLINE}"
 PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})%k%f '
 
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
-# --- Aliases ------------------------------------------------------------------
+# --- Aliases -----------------------------------------------------------------
 alias ls='gls --color=auto'
 alias l='ls -lFGh --group-directories-first'
 alias la='l -a'
@@ -154,9 +154,9 @@ alias dockermake='~/code/docker/docker-make'
 alias vim='nvim'
 alias ctags='/opt/homebrew/bin/ctags'
 alias dev='ssh FCLDEV-OB-549'
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
-# --- Functions ----------------------------------------------------------------
+# --- Functions ---------------------------------------------------------------
 mkcd()
 {
     if [ ! -d $1 ]; then
@@ -171,19 +171,18 @@ alert()
     $@;
     echo -e '\a';
 }
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 
-# --- Colored man pages --------------------------------------------------------
-#man() {
-#    env LESS_TERMCAP_mb=$'\E[01;31m' \
-#    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
-#    LESS_TERMCAP_me=$'\E[0m' \
-#    LESS_TERMCAP_se=$'\E[0m' \
-#    LESS_TERMCAP_so=$'\E[38;5;246m' \
-#    LESS_TERMCAP_ue=$'\E[0m' \
-#    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-#    man "$@"
-#}
-# ------------------------------------------------------------------------------
-
+# --- Colored man pages -------------------------------------------------------
+man() {
+   env LESS_TERMCAP_mb=$'\E[01;31m' \
+   LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+   LESS_TERMCAP_me=$'\E[0m' \
+   LESS_TERMCAP_se=$'\E[0m' \
+   LESS_TERMCAP_so=$'\E[38;5;246m' \
+   LESS_TERMCAP_ue=$'\E[0m' \
+   LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+   man "$@"
+}
+# -----------------------------------------------------------------------------
