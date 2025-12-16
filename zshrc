@@ -154,6 +154,7 @@ alias dockermake='~/code/docker/docker-make'
 alias vim='nvim'
 alias ctags='/opt/homebrew/bin/ctags'
 alias dev='ssh FCLDEV-OB-549'
+alias time='/usr/bin/time'
 # -----------------------------------------------------------------------------
 
 # --- Functions ---------------------------------------------------------------
