@@ -34,6 +34,7 @@ alias help=run-help
 export PATH="${HOME}/bin:/opt/homebrew/opt/llvm/bin/:/usr/local/bin:$PATH"
 export EDITOR="$(which nvim)"
 export KEYTIMEOUT=1
+export CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1
 # export PAGER="$(which bat)"
 # -----------------------------------------------------------------------------
 
@@ -52,7 +53,7 @@ export FZF_DEFAULT_OPTS="--reverse \
     --marker='•' \
     # Gruvbox
     --color=fg:#ebdbb2,bg:#1d2021,hl:#fabd2f,gutter:#1d2021 \
-    --color=fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f \
+    --color=fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f,border:#ebdbb2 \
     --color=info:#83a598,prompt:#b8bb26,pointer:#fabd2f \
     --color=marker:#fabd2f,spinner:#b8bb26,header:#83a598"
     # Catppuccin Latte
@@ -67,6 +68,11 @@ export FZF_DEFAULT_OPTS="--reverse \
     # --color=marker:#268bd2,spinner:#2aa198,header:#93a1a1 \
     # --color=border:#eee8d5,gutter:#fdf6e3,scrollbar:#93a1a1 \
     # --color=label:#586e75,query:#657b83"
+    # Dawnfox
+    # --color=fg:#575279,bg:#faf4ed,hl:#d7827e,gutter:#faf4ed \
+    # --color=fg+:#575279,bg+:#f2e9e1,hl+:#d7827e \
+    # --color=info:#907aa9,prompt:#286983,pointer:#d7827e \
+    # --color=marker:#ea9d34,spinner:#ea9d34,header:#907aa9"
     # Catppuccin Mocha
     # --color=fg:#cdd6f4,bg:#1e1e2e,hl:#f38ba8,gutter:#1e1e2e \
     # --color=fg+:#cdd6f4,bg+:#313244,hl+:#f38ba8 \
@@ -125,14 +131,19 @@ NEWLINE=$'\n'
 BG=$'%{\e[48;5;4m%}'
 BRIGHT_BG=$'%{\e[48;5;4m%}'
 
+# %(x.true-text.false-text)
+# x = 1j <=> evaluates to true if the number of jobs is at least 1
+# %j = number of background jobs
+BACKGROUND_JOBS='%(1j.%B%F{yellow}[%j] %f%b.)'
+
 PROMPT="${NEWLINE}"
 #PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})▌%{$reset_color%}'
 #PROMPT+=$'%F{blue}%B%~%b %{$reset_color%}'
-PROMPT+=$'%F{white} %m %F{blue}%B%~ %b%{$reset_color%}'
+PROMPT+='$BACKGROUND_JOBS%F{white} %F{white}%m %F{blue}%B%~ %b%{$reset_color%}'
 # PROMPT+=$'%F{white}%m %F{blue}%B%~ %b%{$reset_color%}'
-PROMPT+=$'%F{cyan%}$(git_prompt)%{$reset_color%}'
+PROMPT+='%F{cyan%}$(git_prompt)%{$reset_color%}'
 PROMPT+="${NEWLINE}"
-PROMPT+=$'%(?.%{$fg[green]%}.%{$fg[red]%})%k%f '
+PROMPT+='%(?.%{$fg[green]%}.%{$fg[red]%})%k%f '
 
 # -----------------------------------------------------------------------------
 
@@ -153,7 +164,7 @@ alias dockerscons='~/code/docker/docker-scons'
 alias dockermake='~/code/docker/docker-make'
 alias vim='nvim'
 alias ctags='/opt/homebrew/bin/ctags'
-alias dev='ssh FCLDEV-OB-549'
+alias dev='ssh fcldev-ob-400'
 alias time='/usr/bin/time'
 # -----------------------------------------------------------------------------
 
@@ -187,3 +198,8 @@ man() {
    man "$@"
 }
 # -----------------------------------------------------------------------------
+#
+
+. "$HOME/.local/bin/env"
+
+source ~/.lcldevrc
