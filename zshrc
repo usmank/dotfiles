@@ -6,10 +6,11 @@ setopt appendhistory autocd extendedglob nomatch
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/usmank/.zshrc'
+zstyle :compinstall filename '/Users/usman/.zshrc'
+zstyle ':completion:*:*:git:*' script ~/.git-completion.bash
+fpath=(~/.zsh $fpath)
 
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit -u
 # End of lines added by compinstall
 # -----------------------------------------------------------------------------
 
@@ -184,7 +185,6 @@ alert()
     echo -e '\a';
 }
 # -----------------------------------------------------------------------------
-
 
 # --- Colored man pages -------------------------------------------------------
 man() {

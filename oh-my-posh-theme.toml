@@ -1,0 +1,123 @@
+"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
+version = 3
+final_space = true
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+
+[palette]
+    black    = '#262B44'
+    blue     = '#4B95E9'
+    flamingo = '#dd7878'
+    green    = '#59C9A5'
+    lavender = '#7287fd'
+    maroon   = '#e64553'
+    muave    = '#8839ef'
+    orange   = '#F07623'
+    peach    = '#fe640b'
+    pink     = '#ea76cb'
+    red      = '#D81E5B'
+    sapphire = '#209fb5'
+    surface0 = '#ccd0da'
+    surface1 = '#bcc0cc'
+    white    = '#e6e9ef'
+    yellow   = '#F3AE35'
+
+[[blocks]]
+    type = 'prompt'
+    alignment = 'left'
+    newline = true
+
+    [[blocks.segments]]
+        leading_diamond = ''
+        trailing_diamond = ''
+        foreground = 'blue'
+        background = 'transparent'
+        type = 'path'
+        style = 'plain'
+        template = ' {{ path .Path .Location }}'
+
+        [blocks.segments.properties]
+            style = 'full'
+
+    [[blocks.segments]]
+        template = ' {{ if .UpstreamURL }}{{ url .UpstreamIcon .UpstreamURL }} {{ end }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}'
+#leading_diamond = '<transparent,background></>'
+#trailing_diamond = ''
+        foreground = 'p:muave'
+        background = 'transparent'
+        type = 'git'
+        style = 'plain'
+
+        [blocks.segments.properties]
+            branch_max_length = 25
+            fetch_status = true
+            fetch_upstream_icon = false
+            branch_icon = ' '
+            branch_identical_icon = ''
+            branch_gone_icon = ''
+
+    [[blocks.segments]]
+        leading_diamond = '<transparent,background></>'
+        trailing_diamond = ''
+        template = ' {{ if gt .Code 0 }}{{ else }}{{ end }} '
+        foreground = 'p:surface1'
+        background = 'transparent'
+        type = 'status'
+        style = 'plain'
+        foreground_templates = ['{{ if gt .Code 0 }}p:red{{ end }}']
+
+        [blocks.segments.properties]
+            always_enabled = false
+
+[[blocks]]
+    type = 'prompt'
+    alignment = 'right'
+    filler = '{{ if .Overflow }} {{ else }}<white,transparent>.</>{{ end }}'
+    overflow = 'hide'
+
+    [[blocks.segments]]
+        template = ' yo >{{ .Env.JOBS }}< '
+        foreground = 'black'
+        background = 'transparent'
+        type = 'text'
+        style = 'plain'
+
+        [blocks.segments.properties]
+            always_enabled = true
+
+    [[blocks.segments]]
+        type = "executiontime"
+        style = "plain"
+        template = "{{ .FormattedMs }} "
+
+        [blocks.segments.properties]
+            threshold = 500
+            style = "austin"
+            always_enabled = true
+
+    [[blocks.segments]]
+        template = '{{ .CurrentDate | date "15:04:05" }}'
+        foreground = 'white'
+        background = 'transparent'
+        type = 'time'
+        style = 'plain'
+        overflow = 'hide'
+
+[[blocks]]
+    type = 'prompt'
+    alignment = 'left'
+    newline = true
+
+    [[blocks.segments]]
+        template = '❯'
+        foreground = 'black'
+        background = 'transparent'
+        type = 'text'
+        style = 'plain'
+
+        [blocks.segments.properties]
+            always_enabled = true
+
+[secondary_prompt]
+    template = '… '
+    foreground = 'black'
+    background = 'transparent'
