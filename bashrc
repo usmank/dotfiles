@@ -174,3 +174,5 @@ set_prompt() {
 setup_bash
 unset setup_bash
 . "$HOME/.cargo/env"
+
+. "$HOME/.local/bin/env"

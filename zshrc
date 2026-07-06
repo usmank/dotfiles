@@ -164,7 +164,7 @@ alias dockerscons='~/code/docker/docker-scons'
 alias dockermake='~/code/docker/docker-make'
 alias vim='nvim'
 alias ctags='/opt/homebrew/bin/ctags'
-alias dev='ssh fcldev-ob-400'
+alias dev='ssh fcldev-rr-100'
 alias time='/usr/bin/time'
 # -----------------------------------------------------------------------------
 
